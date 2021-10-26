@@ -15,10 +15,7 @@ public abstract class Animal {
   }
 
   public abstract String species();
-  
-  public abstract String canJump();
 
-  public abstract String timeOfActivity();
 
 
   public String toString() {

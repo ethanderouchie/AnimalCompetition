@@ -1,4 +1,4 @@
-public class Dog extends Animal {
+public class Dog extends Animal implements IFightable{
   public Dog(String name) {
     super(name);
   }
@@ -7,15 +7,12 @@ public class Dog extends Animal {
     return "Dog";
   }
 
-
-  
-
-  public String canJump() {
-    return "Yes";
+  public boolean canAttack() {
+    return true;
   }
 
-  public String timeOfActivity() {
-    return "Day";
+  public boolean canDefend() {
+    return false;
   }
 
   public String toString() {

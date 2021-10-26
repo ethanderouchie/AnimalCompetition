@@ -1,4 +1,4 @@
-class Raccoon extends Animal {
+class Raccoon extends Animal implements IFightable{
   
   public Raccoon(String name) {
     super(name);
@@ -8,12 +8,12 @@ class Raccoon extends Animal {
     return "Raccoon";
   }
 
-  public String canJump() {
-    return "Yes";
+  public boolean canAttack() {
+    return true;
   }
 
-  public String timeOfActivity() {
-    return "Night";
+  public boolean canDefend() {
+    return false;
   }
 
   public String toString() {

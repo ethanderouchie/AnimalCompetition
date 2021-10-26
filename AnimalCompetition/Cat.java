@@ -1,4 +1,4 @@
-public class Cat extends Animal {
+public class Cat extends Animal implements IFightable {
 
   public Cat(String name) {
     super(name);
@@ -8,14 +8,14 @@ public class Cat extends Animal {
     return "Cat";
   }
 
-  public String canJump() {
-    return "Yes";
+  public boolean canAttack() {
+    return true;
   }
 
-
-  public String timeOfActivity() {
-    return "Day";
+  public boolean canDefend() {
+    return false;
   }
+
 
   public String toString() {
     return String.format("%s %s.", super.toString(), "Domesticated");
