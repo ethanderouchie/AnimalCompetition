@@ -14,19 +14,17 @@ class Main {
 
 
     var datas = new ArrayList<Animal>(); //creates an arraylist of AnimalData
-    var fighters = new ArrayList<Abilities>(); //creates an arraylist of Abilities
 
     for (var animal: animals) { //adds the animals to the list of fighters
       datas.add(animal);
-      fighters.add((Abilities)animal);
     }
 
-    for (var fighter: fighters) { //prints species, name, and abilities
-      for (var data: datas) {
-        System.out.println(String.format("I am a %s, and I am named %s. My abilities are: Jumping: %s, Active: %s.", data.species(), data.name(), fighter.canJump(), fighter.timeOfActivity()));
-      }
-      break;
-    } 
+  
+    for (var data: datas) {
+      System.out.println(String.format("I am a %s, and I am named %s. My abilities are: Jumping: %s, Active: %s.", data.species(), data.name(), data.canJump(), data.timeOfActivity()));
+    }
+      
+    
 
     
 

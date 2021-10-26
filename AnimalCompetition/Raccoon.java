@@ -1,4 +1,4 @@
-class Raccoon extends Animal implements Abilities {
+class Raccoon extends Animal {
   
   public Raccoon(String name) {
     super(name);
