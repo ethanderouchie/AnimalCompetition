@@ -5,49 +5,36 @@ class Main {
     System.out.println("Choose Your Fighter!");
     Scanner scanner = new Scanner (System.in); 
     String fighter1 = ""; 
-    
-    var animals = new Animal[] { //adds all the animals to an array of animals
-      new Cat("Tom"),
+
+    var listofanimals = new Animal[] {
+      new Cat("Garfield"),
       new Dog("Fido"),
       new Raccoon("Panda"),
-      new Puppy("Theo")
     };
+    
+
+    var animals = new ArrayList<>(Arrays.asList(listofanimals));
+    
 
 
-    var fighters = new ArrayList<Animal>(); //creates an arraylist of AnimalData
 
     for (var animal: animals) { //adds the animals to the list of fighters
-      fighters.add(animal);
-    }
-
-  
-    for (var fighter: fighters) {
-      if (fighter instanceof IFightable) {
-        System.out.println("I'm a , and my name is. ");
-        if (fighter.canAttack() = true) {
-          System.out.println("i can attack");
-        } else {
-          System.out.println("i cant attack");
-        }
-
-        if (fighter.canDefend() = true) {
-          System.out.println("I can defend.");
-        } else {
-          System.out.println("i cant defend");
-        }
+      System.out.print(String.format("I'm a %s, and my name is %s. ", animal.species(), animal.name()));
+      var fighter = (IFightable)animal;
+      if (fighter.canAttack()) {
+        System.out.print("I can attack. ");
       } else {
-        System.out.println("I'm a and my name is. I am not a fighter.");
+        System.out.print("i can't attack. ");
       }
-      
+
+      if (fighter.canDefend()) {
+        System.out.println("I can defend.");
+      } else {
+        System.out.println("I can't defend.");
+      }
+  
     }
-      
-    
 
-    
-
-
-
-    
   } //close main method
 
   
