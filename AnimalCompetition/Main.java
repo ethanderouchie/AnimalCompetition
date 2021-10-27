@@ -55,6 +55,8 @@ class Main {
       } else {
         System.out.println("I can't defend.");
       }
+
+      System.out.println(String.format("I have a health of %s", fighter.health()));
       combatants[animalCounter] = animal.species();
       animalCounter++;
 
@@ -68,7 +70,13 @@ class Main {
       fighter2 = getAIChoice(combatants, AL_AnimalsSize);
     }
 
-    System.out.println(fighter1 + " vs. " + fighter2);
+    
+
+    
+
+
+
+
 
 
     

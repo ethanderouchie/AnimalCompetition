@@ -15,6 +15,10 @@ public class Dog extends Animal implements IFightable{
     return true;
   }
 
+  public int health() {
+    return 70;
+  }
+
   public String toString() {
     return String.format("%s %s.", super.toString(), "Dog");
   }

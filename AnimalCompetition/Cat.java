@@ -16,6 +16,10 @@ public class Cat extends Animal implements IFightable {
     return true;
   }
 
+  public int health() {
+    return 50;
+  }
+
 
   public String toString() {
     return String.format("%s %s.", super.toString(), "Cat");
