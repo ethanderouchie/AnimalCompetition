@@ -68,6 +68,8 @@ class Main {
       fighter2 = getAIChoice(combatants, AL_AnimalsSize);
     }
 
+    System.out.println(fighter1 + " vs. " + fighter2);
+
 
     
 
