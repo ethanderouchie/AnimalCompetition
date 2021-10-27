@@ -5,7 +5,25 @@ class Main {
     System.out.println("Choose Your Fighter!");
     Scanner scanner = new Scanner (System.in);
     String fighter1 = ""; 
+    String fighter2 = "";
+    int humanOrAI;
+    boolean isFacingHuman = false;
     int animalCounter = 0;
+
+    System.out.println("Are you facing a human or the AI?");
+    while (true) {
+      System.out.println("Type 1 for human, Type 2 for AI.");
+      humanOrAI = scanner.nextInt();
+      if (humanOrAI == 2) {
+        break;
+      }
+      else if (humanOrAI == 1) {
+        isFacingHuman = true;
+        break;
+      }
+    }
+
+    
 
     var listofanimals = new Animal[] {
       new Cat("Garfield"),
@@ -44,6 +62,12 @@ class Main {
 
     fighter1 = getPlayerChoice(combatants, AL_AnimalsSize);
 
+    if (isFacingHuman != false) {
+      fighter2 = getPlayerChoice(combatants, AL_AnimalsSize);
+    } else {
+      fighter2 = getAIChoice(combatants, AL_AnimalsSize);
+    }
+
 
     
 
@@ -52,7 +76,7 @@ class Main {
   public static String getPlayerChoice(String combatants[], int AL_AnimalsSize) {
     Scanner scanner = new Scanner (System.in);
     String chosenFighter = "";
-    
+    System.out.println("What animal woud you like to be? Enter the animal's species to select them to be your fighter.");
     boolean isAFighter = false;
     while (isAFighter != true) {
       chosenFighter = scanner.nextLine();
@@ -64,6 +88,16 @@ class Main {
       }
     }
     return chosenFighter;
+  }
+
+  public static String getAIChoice (String combatants[], int AL_AnimalsSize) {
+    Random random = new Random();
+    int chooseFighter;
+    chooseFighter = random.nextInt(AL_AnimalsSize);
+
+    return combatants[chooseFighter];
+  
+
   }
 
   
