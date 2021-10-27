@@ -42,10 +42,6 @@ class Main {
 
     }
 
-    for (int i = 0; i <= AL_AnimalsSize - 1; i++) {
-      System.out.println(combatants[i]);
-    }
-
     fighter1 = getPlayerChoice(combatants, AL_AnimalsSize);
 
 
