@@ -72,6 +72,8 @@ class Main {
       fighter2 = getAIChoice(combatants, AL_AnimalsSize);
     }
 
+    System.out.println(combatants[fighter1] + " vs. " + combatants[fighter2]);
+
     var fighterName1 = (IFightable)listofanimals[fighter1];
     int attackValueP1 = fighterName1.attackPoints();
     int defenseValueP1 = fighterName1.defensePoints();
@@ -81,6 +83,20 @@ class Main {
     int attackValueP2 = fighterName2.attackPoints();
     int defenseValueP2 = fighterName2.defensePoints();
     int healthPointsP2 = fighterName2.health();
+
+    while (healthPointsP1 > 0 && healthPointsP2 > 0) {
+      healthPointsP2 = healthPointsP2 - (attackValueP1 - (defenseValueP2 / 2));
+      healthPointsP1 = healthPointsP1 - (attackValueP2 - (defenseValueP1 / 2));
+      System.out.println(healthPointsP1);
+      System.out.println(healthPointsP2);
+    }
+
+    if (healthPointsP1 < 1) {
+      System.out.println("Player 2 wins!");
+
+    } else if (healthPointsP2 < 1) {
+      System.out.println("Player 1 wins!");
+    }
 
       
 

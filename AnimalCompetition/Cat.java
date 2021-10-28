@@ -25,7 +25,7 @@ public class Cat extends Animal implements IFightable {
   }
 
   public int defensePoints() {
-    return 20;
+    return 10;
   }
 
 
