@@ -4,8 +4,8 @@ class Main {
   public static void main(String[] args) {   
     System.out.println("Choose Your Fighter!");
     Scanner scanner = new Scanner (System.in);
-    String fighter1 = ""; 
-    String fighter2 = "";
+    int fighter1 = -1;
+    int fighter2 = -1;
     int humanOrAI;
     boolean isFacingHuman = false;
     int animalCounter = 0;
@@ -51,12 +51,12 @@ class Main {
       }
 
       if (fighter.canDefend()) {
-        System.out.println("I can defend.");
+        System.out.print("I can defend.");
       } else {
-        System.out.println("I can't defend.");
+        System.out.print("I can't defend.");
       }
 
-      System.out.println(String.format("I have a health of %s", fighter.health()));
+      System.out.println(String.format("I have a health of %s.", fighter.health()));
       combatants[animalCounter] = animal.species();
       animalCounter++;
 
@@ -74,6 +74,16 @@ class Main {
 
     
 
+    
+
+
+    
+    
+
+    
+
+    
+
 
 
 
@@ -83,7 +93,7 @@ class Main {
 
   } //close main method
 
-  public static String getPlayerChoice(String combatants[], int AL_AnimalsSize) {
+  public static int getPlayerChoice(String combatants[], int AL_AnimalsSize) {
     Scanner scanner = new Scanner (System.in);
     String chosenFighter = "";
     System.out.println("What animal woud you like to be? Enter the animal's species to select them to be your fighter.");
@@ -93,20 +103,19 @@ class Main {
       chosenFighter = chosenFighter.toLowerCase();
       for (int i = 0; i <= AL_AnimalsSize - 1; i++) {
         if (chosenFighter.equals(combatants[i])) {
-          isAFighter = true;
+          return i;
         }
       }
     }
-    return chosenFighter;
+    return -1;
   }
 
-  public static String getAIChoice (String combatants[], int AL_AnimalsSize) {
+  public static int getAIChoice (String combatants[], int AL_AnimalsSize) {
     Random random = new Random();
     int chooseFighter;
     chooseFighter = random.nextInt(AL_AnimalsSize);
 
-    return combatants[chooseFighter];
-  
+    return chooseFighter;
 
   }
 

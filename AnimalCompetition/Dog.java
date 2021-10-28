@@ -20,6 +20,6 @@ public class Dog extends Animal implements IFightable{
   }
 
   public String toString() {
-    return String.format("%s %s.", super.toString(), "Dog");
+    return String.format("%s", super.toString());
   }
 }

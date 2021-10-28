@@ -6,5 +6,4 @@ public interface IFightable {
 
   public int health();
   
-   
 }
