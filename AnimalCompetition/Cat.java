@@ -20,6 +20,14 @@ public class Cat extends Animal implements IFightable {
     return 50;
   }
 
+  public int attackPoints() {
+    return 15;
+  }
+
+  public int defensePoints() {
+    return 20;
+  }
+
 
   public String toString() {
     return String.format("%s", super.toString());

@@ -41,7 +41,7 @@ class Main {
 
     String combatants[] = new String[AL_AnimalsSize];
     
-    for (var animal: animals) { //adds the animals to the list of fighters
+    for (var animal: animals) { 
       System.out.print(String.format("I'm a %s, and my name is %s. ", animal.species(), animal.name()));
       var fighter = (IFightable)animal;
       if (fighter.canAttack()) {
@@ -62,13 +62,47 @@ class Main {
 
     }
 
+    System.out.print("Player 1, ");
     fighter1 = getPlayerChoice(combatants, AL_AnimalsSize);
 
     if (isFacingHuman != false) {
+      System.out.print("Player 2, ");
       fighter2 = getPlayerChoice(combatants, AL_AnimalsSize);
     } else {
       fighter2 = getAIChoice(combatants, AL_AnimalsSize);
     }
+
+    var fighterName1 = (IFightable)listofanimals[fighter1];
+    int attackValueP1 = fighterName1.attackPoints();
+    int defenseValueP1 = fighterName1.defensePoints();
+    int healthPointsP1 = fighterName1.health();
+
+    var fighterName2 = (IFightable)listofanimals[fighter2];
+    int attackValueP2 = fighterName2.attackPoints();
+    int defenseValueP2 = fighterName2.defensePoints();
+    int healthPointsP2 = fighterName2.health();
+
+      
+
+
+      
+    
+
+    
+
+
+
+
+
+    
+
+
+
+  
+
+    
+
+
 
     
 
@@ -96,7 +130,7 @@ class Main {
   public static int getPlayerChoice(String combatants[], int AL_AnimalsSize) {
     Scanner scanner = new Scanner (System.in);
     String chosenFighter = "";
-    System.out.println("What animal woud you like to be? Enter the animal's species to select them to be your fighter.");
+    System.out.println("what animal woud you like to be? Enter the animal's species to select them to be your fighter.");
     boolean isAFighter = false;
     while (isAFighter != true) {
       chosenFighter = scanner.nextLine();
@@ -118,6 +152,8 @@ class Main {
     return chooseFighter;
 
   }
+
+
 
   
 

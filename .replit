@@ -1,2 +1,2 @@
 language = "bash"
-run = "pushd \"AnimalCompetition\";javac Main.java; java Main; popd"
+run  = "pushd \"AnimalCompetition\";javac Main.java; java Main; popd"
