@@ -86,9 +86,12 @@ class Main {
 
     while (healthPointsP1 > 0 && healthPointsP2 > 0) {
       healthPointsP2 = healthPointsP2 - (attackValueP1 - (defenseValueP2 / 2));
-      healthPointsP1 = healthPointsP1 - (attackValueP2 - (defenseValueP1 / 2));
-      System.out.println(healthPointsP1);
-      System.out.println(healthPointsP2);
+      System.out.println(combatants[fighter1] + " attacks " + combatants[fighter2]);
+      if (healthPointsP2 > 0) {
+        System.out.println(combatants[fighter2] + " attacks " + combatants[fighter1]);
+        healthPointsP1 = healthPointsP1 - (attackValueP2 - (defenseValueP1 / 2));
+      }
+      
     }
 
     if (healthPointsP1 < 1) {
