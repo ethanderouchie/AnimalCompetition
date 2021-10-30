@@ -16,7 +16,25 @@ class Raccoon extends Animal implements IFightable {
     return true;
   }
 
-  public String toString() {
-    return String.format("%s %s.", super.toString(), "Raccoon");
+  public int health() {
+    return 35;
   }
+
+  public int attackPoints() {
+    return 3;
+  }
+
+  public int defensePoints() {
+    return 5;
+  }
+
+  public int price() {
+    return 50;
+  }
+
+  public String toString() {
+    return String.format("%s", super.toString());
+  }
+
+
 }

@@ -16,9 +16,25 @@ public class Cat extends Animal implements IFightable {
     return true;
   }
 
+  public int health() {
+    return 50;
+  }
+
+  public int attackPoints() {
+    return 4;
+  }
+
+  public int defensePoints() {
+    return 7;
+  }
+
+  public int price() {
+    return 70;
+  }
+
 
   public String toString() {
-    return String.format("%s %s.", super.toString(), "Cat");
+    return String.format("%s", super.toString());
   }
 
 }
