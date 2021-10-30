@@ -21,14 +21,20 @@ class Raccoon extends Animal implements IFightable {
   }
 
   public int attackPoints() {
-    return 10;
+    return 3;
   }
 
   public int defensePoints() {
-    return 20;
+    return 5;
+  }
+
+  public int price() {
+    return 50;
   }
 
   public String toString() {
     return String.format("%s", super.toString());
   }
+
+
 }

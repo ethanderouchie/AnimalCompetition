@@ -31,16 +31,23 @@ class Main {
       new Raccoon("Panda"),
     };
 
-    
-    
+    var listofswords = new Swords[] {
+      new WoodSword(),
+      new IronSword(),
+      new SteelSword(),
+      new EbonySword(),
+      new DragonboneSword()
+    };
 
     var animals = new ArrayList<>(Arrays.asList(listofanimals));
+    var swords = new ArrayList<>(Arrays.asList(listofswords));
 
     int AL_AnimalsSize = animals.size();
+    int AL_SwordsSize = swords.size();
 
 
     String combatants[] = new String[AL_AnimalsSize];
-    
+
     for (var animal: animals) { 
       System.out.print(String.format("I'm a %s, and my name is %s. ", animal.species(), animal.name()));
       var fighter = (IFightable)animal;
@@ -60,6 +67,10 @@ class Main {
       combatants[animalCounter] = animal.species();
       animalCounter++;
 
+    }
+
+    for (var sword: swords) {
+      System.out.println(String.format("%s, %s damage, %s durability, %s coins", sword.type(), sword.damage(), sword.durability(), sword.price()));
     }
 
     System.out.print("Player 1, ");

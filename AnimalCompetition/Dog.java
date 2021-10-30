@@ -20,11 +20,15 @@ public class Dog extends Animal implements IFightable{
   }
 
   public int attackPoints() {
-    return 18;
+    return 6;
   }
 
   public int defensePoints() {
-    return 8;
+    return 3;
+  }
+
+  public int price() {
+    return 80;
   }
 
   public String toString() {
