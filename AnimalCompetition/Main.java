@@ -22,6 +22,10 @@ class Main {
     //navigate the town and the shops using numbers
     int moveAroundTown = 0;
     int moveInShops = 0;
+    int f1swordDamage = 0;
+    int f1swordDurability = 0;
+    int f2swordDamage = 0;
+    int f2swordDurability = 0;
 
     //finds if the user wants to face human or ai
     System.out.println("Are you facing a human or the AI?");
@@ -177,20 +181,37 @@ class Main {
 
     if (sword1 != -1) {
       var f1sword = listofswords[sword1];
-      attackValueP1 += f1sword.damage();
-      var f1swordDurability = f1sword.durability();
+      f1swordDamage = f1sword.damage();
+      attackValueP1 += f1swordDamage;
+      f1swordDurability = f1sword.durability();
     }
 
     if (sword2 != -1) {
       var f2sword = listofswords[sword2];
-      attackValueP2 += f2sword.damage();
-      var f2swordDurability = f2sword.durability();
+      f2swordDamage = f2sword.damage();
+      attackValueP2 += f2swordDamage;
+      f2swordDurability = f2sword.durability();
+      System.out.println(f2swordDamage);
     }
+
+
+    
 
     int minP2Armour = 0;
     int maxP2Armour = 5;
     int minP1Armour = 0;
     int maxP1Armour = 5;
+
+    boolean p1SwordBroke = false;
+    boolean p2SwordBroke = false;
+    if (sword1 == -1) {
+      p1SwordBroke = true;
+    }
+
+    if (sword2 == -1) {
+      p2SwordBroke = true;
+    }
+
 
 
     
@@ -198,20 +219,30 @@ class Main {
     //fights the animals
     while (healthPointsP1 > 0 && healthPointsP2 > 0) {
       healthPointsP2 = healthPointsP2 - (attackValueP1 - (defenseValueP2 / 2));
-      System.out.println("Player 1's " + combatants[fighter1] + " attacks " + "Player 2's" + combatants[fighter2]);
-      f1swordDurability -= random.nextInt(minP2Armour, maxP2Armour);
-      if (f1swordDurability < 1) {
-        attackValueP1 -= f1sword.damage();
-      }
-
-      if (healthPointsP2 > 0) {
-        System.out.println("Player 2's" + combatants[fighter2] + " attacks " + "Player 1's "+ combatants[fighter1]);
-        healthPointsP1 = healthPointsP1 - (attackValueP2 - (defenseValueP1 / 2));
-        f2swordDurability -= random.nextInt(minP1Armour, maxP1Armour);
-        if (f2swordDurability < 1) {
-          attackValueP2 -= f2sword.damage();
+      System.out.println("Player 1's " + combatants[fighter1] + " attacks Player 2's " + combatants[fighter2]);
+      if (p1SwordBroke != true) {
+        if (sword1 != -1) {
+          f1swordDurability -= random.nextInt(maxP2Armour - minP2Armour) + minP1Armour;
+          if (f1swordDurability < 1) {
+            attackValueP1 -= f1swordDamage;
+            System.out.println("Player 1's sword has broken.");
+            p1SwordBroke = true;
+          }
         }
-
+      }
+      if (healthPointsP2 > 0) {
+        System.out.println("Player 2's " + combatants[fighter2] + " attacks Player 1's "+ combatants[fighter1]);
+        healthPointsP1 = healthPointsP1 - (attackValueP2 - (defenseValueP1 / 2));
+        if (p2SwordBroke != true) {
+          if (sword2 != -1) {
+            f2swordDurability -= random.nextInt(maxP1Armour - minP1Armour) + minP1Armour;
+            if (f2swordDurability < 1) {
+              attackValueP2 -= f2swordDamage;
+              System.out.println("Player 2's sword has broken.");
+              p2SwordBroke = true;
+            }
+          }
+        }
 
       }
     }
