@@ -1,4 +1,4 @@
-public class WoodSword extends Swords {
+public class WoodSword extends Swords implements ISellable {
   
 
   public String type() {
@@ -15,6 +15,10 @@ public class WoodSword extends Swords {
 
   public int damage() {
     return 10;
+  }
+
+  public int piercing() {
+    return 0;
   }
 
 

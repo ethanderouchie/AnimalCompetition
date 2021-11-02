@@ -16,8 +16,6 @@ public abstract class Animal {
 
   public abstract String species();
 
-  public abstract int price();
-
   public String toString() {
     return String.format("Hi, I'm %s, a %s.", this.name(), this.species());
   }
