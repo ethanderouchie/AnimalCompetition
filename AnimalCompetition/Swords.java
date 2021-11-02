@@ -1,14 +1,9 @@
-public abstract class Swords {
+public abstract class Swords implements ISellable {
 
   public abstract String type();
   
   public abstract int durability();
 
-  public abstract int price();
-
   public abstract int damage();
-
-
-
 
 }

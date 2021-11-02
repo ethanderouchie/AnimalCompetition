@@ -1,8 +1,9 @@
-public class SteelSword extends Swords {
+public class SteelSword extends Swords implements ISellable {
 
   public String type() {
     return "Steel Sword";
   }
+
   public int durability() {
     return 45;
   }

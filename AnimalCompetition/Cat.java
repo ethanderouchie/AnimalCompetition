@@ -1,4 +1,4 @@
-public class Cat extends Animal implements IFightable {
+public class Cat extends Animal implements IFightable, ISellable {
 
   public Cat(String name) {
     super(name);

@@ -1,4 +1,4 @@
-class Raccoon extends Animal implements IFightable {
+class Raccoon extends Animal implements IFightable, ISellable {
   
   public Raccoon(String name) {
     super(name);

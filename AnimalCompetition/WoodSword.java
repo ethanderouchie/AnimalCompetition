@@ -1,4 +1,4 @@
-public class WoodSword extends Swords {
+public class WoodSword extends Swords implements ISellable {
   
 
   public String type() {

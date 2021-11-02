@@ -1,4 +1,4 @@
-public class DragonboneSword extends Swords {
+public class DragonboneSword extends Swords implements ISellable {
 
   public String type() {
     return "Dragonbone Sword";
