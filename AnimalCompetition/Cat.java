@@ -1,9 +1,5 @@
 public class Cat extends Animal implements IFightable, ISellable {
 
-  public Cat(String name) {
-    super(name);
-  }
-
   public String species() {
     return "cat";
   }
@@ -32,9 +28,24 @@ public class Cat extends Animal implements IFightable, ISellable {
     return 70;
   }
 
+  public boolean isNocturnal() {
+    return false;
+  }
 
-  public String toString() {
-    return String.format("%s", super.toString());
+  public boolean isPredator() {
+    return true;
+  }
+
+  public boolean isSoloHunter() {
+    return true;
+  }
+
+  public int speed() {
+    return 48;
+  }
+
+  public double size() {
+    return 0.41;
   }
 
 }

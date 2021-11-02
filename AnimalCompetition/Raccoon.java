@@ -1,8 +1,5 @@
 class Raccoon extends Animal implements IFightable, ISellable {
   
-  public Raccoon(String name) {
-    super(name);
-  }
 
   public String species() {
     return "raccoon";
@@ -32,9 +29,24 @@ class Raccoon extends Animal implements IFightable, ISellable {
     return 50;
   }
 
-  public String toString() {
-    return String.format("%s", super.toString());
+  public boolean isNocturnal() {
+    return true;
   }
 
+  public boolean isPredator() {
+    return true;
+  }
+
+  public boolean isSoloHunter() {
+    return true;
+  }
+
+  public int speed() {
+    return 25;
+  }
+
+  public double size() {
+    return 0.70;
+  }
 
 }

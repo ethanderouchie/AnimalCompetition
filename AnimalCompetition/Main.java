@@ -10,6 +10,8 @@ class Main {
     //player1's sword and player2/AI's sword.
     int sword1 = -1;
     int sword2 = -1;
+    int armour1 = -1;
+    int armour2 = -1;
     //Starting money
     int player1money = 100;
     int player2money = 100;
@@ -19,6 +21,7 @@ class Main {
     //counts animals and weapons
     int animalCounter = 0;
     int weaponCounter = 0;
+    int armourCounter = 0;
     //navigate the town and the shops using numbers
     int moveAroundTown = 0;
     int moveInShops = 0;
@@ -26,6 +29,14 @@ class Main {
     int f1swordDurability = 0;
     int f2swordDamage = 0;
     int f2swordDurability = 0;
+    int minP2Armour = 0;
+    int maxP2Armour = 5;
+    int minP1Armour = 0;
+    int maxP1Armour = 5;
+    int f1armourProtection = 0;
+    int f1armourDurability = 0;
+    int f2armourProtection = 0;
+    int f2armourDurability = 0;
 
     //finds if the user wants to face human or ai
     System.out.println("Are you facing a human or the AI?");
@@ -43,9 +54,9 @@ class Main {
     
     //adds animal objects to an array
     var listofanimals = new Animal[] {
-      new Cat(""),
-      new Dog(""),
-      new Raccoon("")
+      new Cat(),
+      new Dog(),
+      new Raccoon()
     };
 
     //adds sword objects to an array
@@ -57,13 +68,24 @@ class Main {
       new DragonboneSword()
     };
 
+    var listofarmour = new Armour[] {
+      new HideArmour(),
+      new IronArmour(),
+      new SteelArmour(),
+      new EbonyArmour(),
+      new DaedricArmour()
+    };
+
     
     //adds the arrays to an ArrayList and gets the ArrayList size
     var animals = new ArrayList<>(Arrays.asList(listofanimals));
     var swords = new ArrayList<>(Arrays.asList(listofswords));
 
+    var armours = new ArrayList<>(Arrays.asList(listofarmour));
+
     int AL_AnimalsSize = animals.size();
     int AL_SwordsSize = swords.size();
+    int AL_ArmoursSize = armours.size();
 
     //gets an array  of what species the animals are
     String combatants[] = new String[AL_AnimalsSize];
@@ -80,6 +102,14 @@ class Main {
       weapons[weaponCounter] = sword.type();
       weaponCounter++;
     }
+
+    String protection[] = new String[AL_ArmoursSize];
+
+    for (var armour: armours) {
+      protection[armourCounter] = armour.type();
+      armourCounter++;
+    }
+
 
 
 
@@ -149,10 +179,20 @@ class Main {
               System.out.println("You chose the " + weapons[sword1]);
             } else if (i == 2) {
               sword2 = getPlayerSword(weapons, AL_SwordsSize);
+              System.out.println("You chose the " + weapons[sword2]);
             }
             
-          } else if (moveInShops == 2) { //armour is not available yet
-            moveInShops = 0;
+          } else if (moveInShops == 2) { 
+            for (var armour: armours) {
+              System.out.println(String.format("%s, %s protection, %s durability, %s coins.", armour.type(), armour.protection(), armour.durability(), armour.price()));
+            }
+            if (i == 1) {
+              armour1 = getPlayerArmour(protection, AL_ArmoursSize);
+              System.out.println("You chose the " + protection[armour1]);
+            } else if (i == 2) {
+              armour2 = getPlayerArmour(protection, AL_ArmoursSize);
+              System.out.println("You chose the " + protection[armour2]);
+            }
           } else if (moveInShops == 3) { //lets you leave to the town
             moveAroundTown = 0; 
           }
@@ -166,6 +206,10 @@ class Main {
         System.out.println("It is now time to fight!");
       }
     }      
+    int minP1Sword = 0;
+    int maxP1Sword = 5;
+    int minP2Sword = 0;
+    int maxP2Sword = 5;
 
     //gives player 1's animal their stats and sword and gives player 2's animal their stats and sword
     
@@ -184,6 +228,10 @@ class Main {
       f1swordDamage = f1sword.damage();
       attackValueP1 += f1swordDamage;
       f1swordDurability = f1sword.durability();
+      if (f1sword.piercing() > 2) {
+        minP1Sword = f1sword.piercing() - 3;
+        maxP1Sword = f1sword.piercing() + 3;
+      }
     }
 
     if (sword2 != -1) {
@@ -191,19 +239,19 @@ class Main {
       f2swordDamage = f2sword.damage();
       attackValueP2 += f2swordDamage;
       f2swordDurability = f2sword.durability();
-      System.out.println(f2swordDamage);
+      if (f2sword.piercing() > 2) {
+        minP2Sword = f2sword.piercing() - 3;
+        maxP2Sword = f2sword.piercing() + 3;
+      }
     }
 
 
-    
-
-    int minP2Armour = 0;
-    int maxP2Armour = 5;
-    int minP1Armour = 0;
-    int maxP1Armour = 5;
 
     boolean p1SwordBroke = false;
     boolean p2SwordBroke = false;
+    boolean p1ArmourBroke = false;
+    boolean p2ArmourBroke = false;
+
     if (sword1 == -1) {
       p1SwordBroke = true;
     }
@@ -212,7 +260,32 @@ class Main {
       p2SwordBroke = true;
     }
 
+    if (armour1 != -1) {
+      var f1armour = listofarmour[armour1];
+      f1armourProtection = f1armour.protection();
+      defenseValueP1 += f1armourProtection;
+      f1armourDurability = f1armour.durability();
+      if (f1armour.hardness() > 2) {
+        minP1Armour = f1armour.hardness() - 3;
+        maxP1Armour = f1armour.hardness() + 3;
+      }
+    }
 
+    if (armour2 != -1) {
+      var f2armour = listofarmour[armour2];
+      f2armourProtection = f2armour.protection();
+      defenseValueP2 += f2armourProtection;
+      f2armourDurability = f2armour.durability();
+      if (f2armour.hardness() > 2) {
+        minP2Armour = f2armour.hardness() - 3;
+        maxP2Armour = f2armour.hardness() + 3;
+      }
+    }
+
+    
+
+
+  
 
     
 
@@ -222,11 +295,21 @@ class Main {
       System.out.println("Player 1's " + combatants[fighter1] + " attacks Player 2's " + combatants[fighter2]);
       if (p1SwordBroke != true) {
         if (sword1 != -1) {
-          f1swordDurability -= random.nextInt(maxP2Armour - minP2Armour) + minP1Armour;
+          f1swordDurability -= random.nextInt(maxP2Armour - minP2Armour) + minP2Armour;
           if (f1swordDurability < 1) {
             attackValueP1 -= f1swordDamage;
             System.out.println("Player 1's sword has broken.");
             p1SwordBroke = true;
+          }
+        }
+      } 
+      if (p1ArmourBroke != true) {
+        if (armour1 != -1) {
+          f1armourDurability -= random.nextInt(maxP2Sword - minP2Sword) + minP2Sword;
+          if (f1armourDurability < 1) {
+            defenseValueP1 -= f1armourProtection;
+            System.out.println("PLayer 1's armour has broken.");
+            p1ArmourBroke = true;
           }
         }
       }
@@ -243,7 +326,16 @@ class Main {
             }
           }
         }
-
+        if (p2ArmourBroke != true) {
+          if (armour2 != -1) {
+            f1armourDurability -= random.nextInt(maxP1Sword - minP1Sword) + minP1Sword;
+            if (f2armourDurability < 1) {
+              defenseValueP2 -= f2armourProtection;
+              System.out.println("PLayer 2's armour has broken.");
+              p2ArmourBroke = true;
+            }
+          }
+        }
       }
     }
 
@@ -337,6 +429,47 @@ class Main {
     }
     for (int i = 0; i <= AL_SwordsSize - 1; i++) {
       if (chosenSword.equals(weapons[i])) {
+        return i;
+      }
+    }
+    return -1;
+  }
+
+  public static int getPlayerArmour(String armour[], int AL_ArmoursSize) {
+    Scanner scanner = new Scanner (System.in);
+    String chosenArmour = "";
+    int chooseArmour = -1;
+    System.out.println("What armour would you like? Enter the matching number to select it.");
+    boolean isArmour = false;
+    while (isArmour != true) {
+      chooseArmour = scanner.nextInt();
+      switch (chooseArmour) {
+        case 1:
+          chosenArmour = "Hide Armour";
+          isArmour = true;
+          break;
+        case 2:
+          chosenArmour = "Iron Armour";
+          isArmour = true;
+          break;
+        case 3:
+          chosenArmour = "Steel Armour";
+          isArmour = true;
+          break;
+        case 4:
+          chosenArmour = "Ebony Armour";
+          isArmour = true;
+          break;
+        case 5:
+          chosenArmour = "Daedric Armour";
+          isArmour = true;
+          break;
+        default:
+          chosenArmour = "";
+      }
+    }
+    for (int i = 0; i <= AL_ArmoursSize - 1; i++) {
+      if (chosenArmour.equals(armour[i])) {
         return i;
       }
     }

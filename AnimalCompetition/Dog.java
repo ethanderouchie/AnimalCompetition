@@ -1,7 +1,4 @@
 public class Dog extends Animal implements IFightable, ISellable {
-  public Dog(String name) {
-    super(name);
-  }
 
   public String species() {
     return "dog";
@@ -31,7 +28,24 @@ public class Dog extends Animal implements IFightable, ISellable {
     return 80;
   }
 
-  public String toString() {
-    return String.format("%s", super.toString());
+  public boolean isNocturnal() {
+    return false;
   }
+
+  public boolean isPredator() {
+    return true;
+  }
+
+  public boolean isSoloHunter() {
+    return false;
+  }
+
+  public int speed() {
+    return 37;
+  }
+
+  public double size() {
+    return 1.07;
+  }
+  
 }
