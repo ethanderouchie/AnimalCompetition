@@ -15,4 +15,8 @@ public class SteelSword extends Swords implements ISellable {
   public int damage() {
     return 28;
   }
+
+  public int piercing() {
+    return 5;
+  }
 }

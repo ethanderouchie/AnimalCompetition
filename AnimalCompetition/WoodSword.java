@@ -17,6 +17,10 @@ public class WoodSword extends Swords implements ISellable {
     return 10;
   }
 
+  public int piercing() {
+    return 0;
+  }
+
 
 
   

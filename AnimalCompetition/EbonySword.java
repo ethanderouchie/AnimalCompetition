@@ -15,4 +15,8 @@ public class EbonySword extends Swords implements ISellable {
   public int damage() {
     return 45;
   }
+
+  public int piercing() {
+    return 10;
+  }
 }

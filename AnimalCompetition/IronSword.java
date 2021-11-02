@@ -15,4 +15,8 @@ public class IronSword extends Swords implements ISellable {
   public int damage() {
     return 17;
   }
+
+  public int piercing() {
+    return 2;
+  }
 }
