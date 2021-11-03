@@ -33,6 +33,11 @@ class Main {
     int maxP2Armour = 5;
     int minP1Armour = 0;
     int maxP1Armour = 5;
+    int f1health;
+    int f2health;
+    int chooseHealth = -1;
+    int f1addedhealth = 0;
+    int f2addedhealth = 0;
     int f1armourProtection = 0;
     int f1armourDurability = 0;
     int f2armourProtection = 0;
@@ -160,6 +165,7 @@ class Main {
                 if (player1money - listofanimals[fighter1].price() > 0) {
                   System.out.println("You chose the " + combatants[fighter1]);
                   player1money -= listofanimals[fighter1].price();
+                  f1health = listofanimals[fighter1].health();
                 } else {
                   System.out.println("You don't have enough money to buy this item!");
                 }
@@ -168,6 +174,7 @@ class Main {
                 if (player2money - listofanimals[fighter2].price() > 0) {
                   System.out.println("You chose the " + combatants[fighter2]);
                   player2money -= listofanimals[fighter2].price();
+                  f2health = listofanimals[fighter2].health();
                 } else {
                   System.out.println("You don't have enough money to buy this item!");
                 }
@@ -181,7 +188,45 @@ class Main {
 
 
           while (moveAroundTown == 2) { //this will eventually allow you to heal your animals, right now kicks you out to the town
-            moveAroundTown = 0;
+            System.out.println("Welcome to Bothela's Animal Hospital. We will heal your animal so it is battle ready. How much would you like to heal your animal today?");
+            System.out.println("1. Healing");
+            System.out.println("2. Leave Bothela's");
+            if (moveInShops == 1) {
+              System.out.println("5 points of health, 15 coins.");
+              System.out.println("10 points of health. 30 coins.");
+              System.out.println("25 points of health, 50 coins.");
+              System.out.println("50 points of health, 90 coins.");
+              System.out.println("100 points of health, 150 coins.");
+              System.out.println("Exit Menu.");
+              if (i == 1) {
+                while (true) {
+                  chooseHealth = scanner.nextInt();
+                  if (chooseHealth > 0 && chooseHealth < 7) {
+                    break;
+                  } else {
+                    System.out.println("Pick a valid option.")
+                  }
+                }
+                switch (chooseHealth) {
+                  case 1:
+                  case 2:
+                  case 3:
+                  case 4: 
+                  case 5:
+                    addedHealth = fighter1.health() + 100;
+                    
+                  case 6:
+                    moveInShops = 0;
+                    break;
+                
+                }
+              } else if (i == 2) {
+                
+              }
+              
+            } else if (moveInShops == 2) {
+              moveAroundTown = 0;
+            }
           }
           //allows for all the operations of a blacksmith
           while (moveAroundTown == 3) { //enter blacksmith
@@ -192,7 +237,7 @@ class Main {
             moveInShops = scanner.nextInt(); //pick what you want to do
             if (moveInShops == 1) { //buy swords
               for (var sword: swords) {
-              System.out.println(String.format("%s, %s damage, %s durability, %s coins", sword.type(), sword.damage(), sword.durability(), sword.price()));
+                System.out.println(String.format("%s, %s damage, %s durability, %s coins", sword.type(), sword.damage(), sword.durability(), sword.price()));
               }
               if (i == 1) {
                 sword1 = getPlayerSword(weapons, AL_SwordsSize);
