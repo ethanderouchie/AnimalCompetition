@@ -37,6 +37,7 @@ class Main {
     int f1armourDurability = 0;
     int f2armourProtection = 0;
     int f2armourDurability = 0;
+    int lowestAnimalCost = 999999999;
 
     //finds if the user wants to face human or ai
     System.out.println("Are you facing a human or the AI?");
@@ -92,6 +93,9 @@ class Main {
 
     for (var animal: animals) {
       combatants[animalCounter] = animal.species();
+      if (animal.price() < lowestAnimalCost) {
+        lowestAnimalCost = animal.price();
+      }
       animalCounter++;
     }
     
@@ -113,7 +117,7 @@ class Main {
 
 
 
-    while (player1money > 0 && player2money > 0) {
+    while (player1money > lowestAnimalCost && player2money > lowestAnimalCost) {
       for (int i = 1; i <= 2; i++) { //allows for each player to get a turn buying equipment each round
         while (moveAroundTown != 4) { //4 exits the town and lets player2 decide what to buy
           System.out.println("Where would you like to go?");
@@ -131,20 +135,20 @@ class Main {
             moveInShops = scanner.nextInt(); 
             if (moveInShops == 1) { 
               for (var animal: animals) { //prints all the animals and their stats
-                System.out.print(String.format("I'm a %s. ", animal.species()));
+                System.out.print(String.format("%s, ", animal.species()));
                 var fighter = (IFightable)animal;
                 if (fighter.canAttack()) {
-                  System.out.print(String.format("I do %s damage. ", fighter.attackPoints()));
+                  System.out.print(String.format("%s damage, ", fighter.attackPoints()));
                 } else {
                   System.out.print("I can't attack. "); 
                 }
 
                 if (fighter.canDefend()) {
-                  System.out.print(String.format("I have %s defense. ", fighter.defensePoints()));
+                  System.out.print(String.format("%s defense, ", fighter.defensePoints()));
                 } else {
                   System.out.print("I can't defend. "); 
                 }
-                  System.out.println(String.format("I have a health of %s, and I cost %s coins.", fighter.health(), animal.price()));
+                  System.out.println(String.format("%s health, %s coins.", fighter.health(), animal.price()));
                 }
 
 
@@ -378,6 +382,12 @@ class Main {
       }
     }
 
+    if (player1money > player2money) {
+      System.out.println("Player 1 wins!");
+    } else if (player2money > player1money) {
+      System.out.println("Player 2 wins!");
+    }
+
   } //close main method
 
   public static int getPlayerChoice(String combatants[], int AL_AnimalsSize) {
@@ -391,15 +401,15 @@ class Main {
       chooseFighter = scanner.nextInt();
       switch (chooseFighter) { 
         case 1:
-        chosenFighter = "cat";
+        chosenFighter = "raccoon";
         isAFighter = true;
         break;
         case 2:
-          chosenFighter = "dog";
+          chosenFighter = "cat";
           isAFighter = true;
           break;
         case 3:
-          chosenFighter = "raccoon";
+          chosenFighter = "dog";
           isAFighter = true;
           break;
         default:
