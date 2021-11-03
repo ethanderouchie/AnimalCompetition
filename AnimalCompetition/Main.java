@@ -368,7 +368,6 @@ class Main {
               }
             }
           }
-
         }
       }
 
@@ -389,9 +388,9 @@ class Main {
       }
     }
 
-    if (player1money > player2money) {
+    if (fighter1 != -1) {
       System.out.println("Player 1 wins!");
-    } else if (player2money > player1money) {
+    } else if (fighter2 != -1) {
       System.out.println("Player 2 wins!");
     }
 
