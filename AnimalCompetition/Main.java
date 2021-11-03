@@ -121,19 +121,10 @@ class Main {
     while (player1money > lowestAnimalCost && player2money > lowestAnimalCost) {
       for (int i = 1; i <= 2; i++) { //allows for each player to get a turn buying equipment each round
         while (moveAroundTown != 4) { //4 exits the town and lets player2 decide what to buy
-          System.out.println("Where would you like to go?");
-          System.out.println("1. Arivanya's Animals, an animal breeder.");
-          System.out.println("2. Bothela's Animal Hospital, an animal healer.");
-          System.out.println("3. Balimund's Forge, a weapon and armour seller.");
-          System.out.println("4. Leave town, and head to the fight.");
-          moveAroundTown = scanner.nextInt();
-          
-          //allows for all the operations of an animal store
+          moveAroundTown = townMovement();
+          // animal[],
           while (moveAroundTown == 1) { 
-            System.out.println("Welcome to Arivanya's Animals. We have all sorts of animals for purchase. So what animal would you like to buy?");
-            System.out.println("1. Animals");
-            System.out.println("2. Leave Arivanya's");
-            moveInShops = scanner.nextInt(); 
+            moveInShops = breederMovement();
             if (moveInShops == 1) { 
               for (var animal: animals) { //prints all the animals and their stats
                 System.out.print(String.format("%s, ", animal.species()));
@@ -151,8 +142,6 @@ class Main {
                 }
                   System.out.println(String.format("%s health, %s coins.", fighter.health(), animal.price()));
                 }
-
-
 
               //adds the animal to the fighter1 or fighter2 slot
               if (i == 1) {
@@ -185,11 +174,7 @@ class Main {
           }
           //allows for all the operations of a blacksmith
           while (moveAroundTown == 3) { //enter blacksmith
-            System.out.println("Welcome to Balimund's Forge! We have the finest weapons and armour. So what would you like to purchase?");
-            System.out.println("1. Swords");
-            System.out.println("2. Armour");
-            System.out.println("3. Leave Balimund's");
-            moveInShops = scanner.nextInt(); //pick what you want to do
+            moveInShops = forgeMovement();
             if (moveInShops == 1) { //buy swords
               for (var sword: swords) {
               System.out.println(String.format("%s, %s damage, %s durability, %s coins", sword.type(), sword.damage(), sword.durability(), sword.price()));
@@ -521,6 +506,33 @@ class Main {
       }
     }
     return -1;
+  }
+
+  public static int townMovement() {
+    System.out.println("Where would you like to go?");
+    System.out.println("1. Arivanya's Animals, an animal breeder.");
+    System.out.println("2. Bothela's Animal Hospital, an animal healer.");
+    System.out.println("3. Balimund's Forge, a weapon and armour seller.");
+    System.out.println("4. Leave town, and head to the fight.");
+    int moveAroundTown = scanner.nextInt();
+    return moveAroundTown;
+  }
+
+  public static int breederMovement() {
+    System.out.println("Welcome to Arivanya's Animals. We have all sorts of animals for purchase. So what animal would you like to buy?");
+    System.out.println("1. Animals");
+    System.out.println("2. Leave Arivanya's");
+    int moveInShops = scanner.nextInt(); 
+    return moveInShops;
+  }
+
+  public static int forgeMovement() {
+    System.out.println("Welcome to Balimund's Forge! We have the finest weapons and armour. So what would you like to purchase?");
+    System.out.println("1. Swords");
+    System.out.println("2. Armour");
+    System.out.println("3. Leave Balimund's");
+    int moveInShops = scanner.nextInt();
+    return moveInShops;
   }
 
 
