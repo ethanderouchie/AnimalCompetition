@@ -115,7 +115,7 @@ class Main {
 
     while (player1money > 0 && player2money > 0) {
       for (int i = 1; i <= 2; i++) { //allows for each player to get a turn buying equipment each round
-        while (moveAroundTown != 5) { //4 exits the town and lets player2 decide what to buy
+        while (moveAroundTown != 4) { //4 exits the town and lets player2 decide what to buy
           System.out.println("Where would you like to go?");
           System.out.println("1. Arivanya's Animals, an animal breeder.");
           System.out.println("2. Bothela's Animal Hospital, an animal healer.");
@@ -144,14 +144,22 @@ class Main {
                 } else {
                   System.out.print("I can't defend. "); 
                 }
-                  System.out.println(String.format("I have a health of %s.", fighter.health()));
+                  System.out.println(String.format("I have a health of %s, and I cost %s coins.", fighter.health(), animal.price()));
                 }
+
+
 
               //adds the animal to the fighter1 or fighter2 slot
               if (i == 1) {
                 fighter1 = getPlayerChoice(combatants, AL_AnimalsSize);
+                System.out.println("You chose the " + combatants[fighter1]);
+                player1money -= listofanimals[fighter1].price();
+
+
               } else if (i == 2) {
                 fighter2 = getPlayerChoice(combatants, AL_AnimalsSize);
+                System.out.println("You chose the " + combatants[fighter2]);
+                player1money -= listofanimals[fighter2].price();                
               }
             } 
             else if (moveInShops == 2) { //Lets you go back out to the town
@@ -177,9 +185,11 @@ class Main {
               if (i == 1) {
                 sword1 = getPlayerSword(weapons, AL_SwordsSize);
                 System.out.println("You chose the " + weapons[sword1]);
+                player1money -= listofswords[sword1].price();
               } else if (i == 2) {
                 sword2 = getPlayerSword(weapons, AL_SwordsSize);
                 System.out.println("You chose the " + weapons[sword2]);
+                player2money -= listofswords[sword2].price();
               }
               
             } else if (moveInShops == 2) { 
@@ -189,18 +199,22 @@ class Main {
               if (i == 1) {
                 armour1 = getPlayerArmour(protection, AL_ArmoursSize);
                 System.out.println("You chose the " + protection[armour1]);
+                player1money -= listofarmour[armour1].price();
               } else if (i == 2) {
                 armour2 = getPlayerArmour(protection, AL_ArmoursSize);
                 System.out.println("You chose the " + protection[armour2]);
+                player2money -= listofarmour[armour2].price();
               }
             } else if (moveInShops == 3) { //lets you leave to the town
               moveAroundTown = 0; 
             }
           }
-          
+
         }
         moveAroundTown = 0;
         //instructs players so they know what to do
+        System.out.println(player1money);
+        System.out.println(player2money);
         if (i == 1) {
           System.out.println("It is now player 2's turn to buy items.");
         } else if (i == 2) {
