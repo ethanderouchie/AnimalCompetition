@@ -54,9 +54,9 @@ class Main {
     
     //adds animal objects to an array
     var listofanimals = new Animal[] {
+      new Raccoon(),
       new Cat(),
-      new Dog(),
-      new Raccoon()
+      new Dog()
     };
 
     //adds sword objects to an array
@@ -152,14 +152,21 @@ class Main {
               //adds the animal to the fighter1 or fighter2 slot
               if (i == 1) {
                 fighter1 = getPlayerChoice(combatants, AL_AnimalsSize);
-                System.out.println("You chose the " + combatants[fighter1]);
-                player1money -= listofanimals[fighter1].price();
-
-
+                if (player1money - listofanimals[fighter1].price() > 0) {
+                  System.out.println("You chose the " + combatants[fighter1]);
+                  player1money -= listofanimals[fighter1].price();
+                } else {
+                  System.out.println("You don't have enough money to buy this item!");
+                }
               } else if (i == 2) {
                 fighter2 = getPlayerChoice(combatants, AL_AnimalsSize);
-                System.out.println("You chose the " + combatants[fighter2]);
-                player1money -= listofanimals[fighter2].price();                
+                if (player2money - listofanimals[fighter2].price() > 0) {
+                  System.out.println("You chose the " + combatants[fighter2]);
+                  player2money -= listofanimals[fighter2].price();
+                } else {
+                  System.out.println("You don't have enough money to buy this item!");
+                }
+                                
               }
             } 
             else if (moveInShops == 2) { //Lets you go back out to the town
@@ -213,9 +220,14 @@ class Main {
         }
         moveAroundTown = 0;
         //instructs players so they know what to do
-        System.out.println(player1money);
-        System.out.println(player2money);
-        if (i == 1) {
+        if (fighter1 == -1) {
+          System.out.println("You must choose a fighter! Visit Arivanya's Animals to buy an animal.");
+          i--;
+        } else if (fighter2 == -1 && i == 2) {
+          System.out.println("You must choose a fighter! Visit Arivanya's Animals to buy an animal.");
+          i--;
+        }
+        else if (i == 1) {
           System.out.println("It is now player 2's turn to buy items.");
         } else if (i == 2) {
           System.out.println("It is now time to fight!");
@@ -358,9 +370,11 @@ class Main {
       //prints who won the fight
       if (healthPointsP1 < 1) {
         System.out.println("Player 2 wins!");
+        fighter1 = -1;
 
       } else if (healthPointsP2 < 1) {
         System.out.println("Player 1 wins!");
+        fighter2 = -1;
       }
     }
 
