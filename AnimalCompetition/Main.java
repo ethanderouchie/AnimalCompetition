@@ -38,6 +38,7 @@ class Main {
     int f2armourProtection = 0;
     int f2armourDurability = 0;
     int lowestAnimalCost = 999999999;
+    int winnings = 0;
 
     //finds if the user wants to face human or ai
     System.out.println("Are you facing a human or the AI?");
@@ -373,11 +374,17 @@ class Main {
 
       //prints who won the fight
       if (healthPointsP1 < 1) {
-        System.out.println("Player 2 wins!");
+        System.out.println("Player 2 wins this battle!");
+        winnings = random.nextInt(50 - 10) + 10;
+        player2money += winnings;
+        System.out.println("You won " + winnings + " coins for beating your opponent.");
         fighter1 = -1;
 
       } else if (healthPointsP2 < 1) {
-        System.out.println("Player 1 wins!");
+        System.out.println("Player 1 wins this battle!");
+        winnings = random.nextInt(50 - 10) + 10;
+        player1money += winnings;
+        System.out.println("You won " + winnings + " coins for beating your opponent.");
         fighter2 = -1;
       }
     }
@@ -516,8 +523,6 @@ class Main {
     }
     return -1;
   }
-
-
 
 
 
