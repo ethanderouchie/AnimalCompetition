@@ -328,7 +328,7 @@ class Main {
         }
         if (p2ArmourBroke != true) {
           if (armour2 != -1) {
-            f1armourDurability -= random.nextInt(maxP1Sword - minP1Sword) + minP1Sword;
+            f2armourDurability -= random.nextInt(maxP1Sword - minP1Sword) + minP1Sword;
             if (f2armourDurability < 1) {
               defenseValueP2 -= f2armourProtection;
               System.out.println("PLayer 2's armour has broken.");
@@ -336,6 +336,7 @@ class Main {
             }
           }
         }
+
       }
     }
 

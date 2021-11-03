@@ -18,7 +18,7 @@ class Raccoon extends Animal implements IFightable, ISellable {
   }
 
   public int attackPoints() {
-    return 3;
+    return 5;
   }
 
   public int defensePoints() {
