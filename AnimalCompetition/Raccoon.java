@@ -2,7 +2,7 @@ class Raccoon extends Animal implements IFightable, ISellable {
   
 
   public String species() {
-    return "raccoon";
+    return "Raccoon";
   }
 
   public boolean canAttack() {

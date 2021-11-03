@@ -1,7 +1,7 @@
 public class Dog extends Animal implements IFightable, ISellable {
 
   public String species() {
-    return "dog";
+    return "Dog";
   }
 
   public boolean canAttack() {
