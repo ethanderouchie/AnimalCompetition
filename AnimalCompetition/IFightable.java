@@ -9,5 +9,9 @@ public interface IFightable {
   public int attackPoints();
 
   public int defensePoints();
+
+  public int dodgePercent();
+
+  public boolean isNocturnal();
   
 }

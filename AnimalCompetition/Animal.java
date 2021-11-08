@@ -13,6 +13,4 @@ public abstract class Animal implements ISellable {
   public abstract double size();
 
 
-  
-
 }

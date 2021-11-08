@@ -48,4 +48,8 @@ public class Cat extends Animal implements IFightable, ISellable {
     return 0.41;
   }
 
+  public int dodgePercent() {
+    return 30;
+  }
+
 }

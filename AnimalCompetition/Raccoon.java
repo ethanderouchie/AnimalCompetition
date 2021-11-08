@@ -49,4 +49,8 @@ class Raccoon extends Animal implements IFightable, ISellable {
     return 0.70;
   }
 
+  public int dodgePercent() {
+    return 40;
+  }
+
 }
