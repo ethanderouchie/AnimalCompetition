@@ -1,0 +1,12 @@
+temp file (will be deleted later)
+
+Damage = Base damage + isFaster + isNocturnal + solo or group hunter bonus + SizeFactor + PredOrPrey 
+
+Dodge Percent = Speed + Size + PredOrPrey + isArmourHeavy
+
+if faster gain 15% bonus to attack
+Nocturnal animals gain bonus in night, dayturnal animals gain bonus in day
+Bigger Animals do more damage, smaller animals have better dodging abilities
+Solo hunters gain bonus when alone, group hunters gain bonus when in a group
+Predators do more damage, prey do more dodging at cost of some damage
+Heavy armour takes away from dodge ability, but adds to protection
