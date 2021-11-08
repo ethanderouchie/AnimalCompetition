@@ -1,4 +1,4 @@
-public abstract class Animal {
+public abstract class Animal implements ISellable {
 
   public abstract String species();
 
@@ -12,7 +12,5 @@ public abstract class Animal {
 
   public abstract double size();
 
-
-  
 
 }
