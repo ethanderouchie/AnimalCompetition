@@ -28,37 +28,37 @@ class Main {
     int moveInShops = 0;
     int lowestAnimalCost = 999999999;
     int winnings = 0;
+    int f1armourDurability = 0;
+    int f2armourDurability = 0;
     boolean isRaining = false;
     boolean isNight = true;
 
-    boolean swordBroke[] = new boolean [] {
-      swordBroke[0] = false,
-      swordBroke[1] = false
-    };
-    boolean armourBroke[] = new boolean [] {
-      armourBroke[0] = false,
-      armourBroke[1] = false
-    };
-    int armourProtection[] = new int [] {
-      armourProtection[0] = 0,
-      armourProtection[1] = 0
-    };
-    int swordDamage[] = new int [] {
-      swordDamage[0] = 0,
-      swordDamage[1] = 0
-    };
-    int swordDurability[] = new int [] {
-      swordDurability[0] = 0,
-      swordDurability[1] = 0
-    };
-    int minArmour[] = new int [] {
-      minArmour[0] = 0,
-      minArmour[1] = 0
-    };
-    int maxArmour[] = new int [] {
-      minArmour[0] = 5,
-      minArmour[1] = 5
-    };
+    boolean swordBroke[] = new boolean [2]; 
+    swordBroke[0] = false;
+    swordBroke[1] = false;
+    boolean armourBroke[] = new boolean [2]; 
+    armourBroke[0] = false;
+    armourBroke[1] = false;
+    int armourProtection[] = new int [2]; 
+    armourProtection[0] = 0;
+    armourProtection[1] = 0;
+
+    int swordDamage[] = new int [2]; 
+    swordDamage[0] = 0;
+    swordDamage[1] = 0;
+
+    int swordDurability[] = new int [2];
+    swordDurability[0] = 0;
+    swordDurability[1] = 0;
+
+    int minArmour[] = new int [2];
+    minArmour[0] = 0;
+    minArmour[1] = 0;
+
+    int maxArmour[] = new int [2];
+    minArmour[0] = 5;
+    minArmour[1] = 5;
+    
 
     //finds if the user wants to face human or ai
     System.out.println("Are you facing a human or the AI?");
