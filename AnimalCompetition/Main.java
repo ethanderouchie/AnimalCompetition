@@ -225,6 +225,7 @@ class Main {
         moveAroundTown = 0;
         i = canPlayerLeave(fighter1, fighter2, i);
       }
+    }
           
     int minP1Sword = 0;
     int maxP1Sword = 5;
@@ -278,30 +279,20 @@ class Main {
       swordBroke[1] = true;
     }
 
-    if (armour1 != -1) {
-      var f1armour = listofarmour[armour1];
-      armourProtection[0] = f1armour.protection();
-      defenseValueP1 += armourProtection[0];
-      f1armourDurability = f1armour.durability();
-      if (f1armour.hardness() > 2) {
-        minArmour[0] = f1armour.hardness() - 3;
-        maxArmour[0] = f1armour.hardness() + 3;
-      }
+
+    if (fighterName1.speed() < fighterName2.speed() && fighterName1.size() < fighterName2.size()) { //if fighter2 is faster and smaller than fighter1
+      dodgePercentP2 += fighterName2.speed() - fighterName1.speed() + 2;
+    } else if (fighterName1.speed() > fighterName2.speed() && fighterName1.size() > fighterName2.size() ){ //if fighter1 is faster and smaller than fighter2
+      dodgePercentP1 += fighterName1.speed() - fighterName2.speed();
+    } else if (fighterName1.speed() < fighterName2.speed()) { //if fighter2 is faster than fighter1
+      dodgePercentP2 += fighterName2.speed() - fighterName1.speed() - 2;
+    } else if (fighterName1.speed() > fighterName2.speed()) { //if fighter1 is faster than fighter2
+      dodgePercentP1 += fighterName1.speed() - fighterName2.speed() - 2;
     }
 
-    if (armour2 != -1) {
-      var f2armour = listofarmour[armour2];
-      armourProtection[1] = f2armour.protection();
-      defenseValueP2 += armourProtection[1];
-      f2armourDurability = f2armour.durability();
-      if (f2armour.hardness() > 2) {
-        minArmour[1] = f2armour.hardness() - 3;
-        maxArmour[1] = f2armour.hardness() + 3;
-      }
-    }
+
 
     int trueOrFalse = random.nextInt(2);
-    System.out.println(trueOrFalse);
     if (trueOrFalse == 0) {
       isRaining = false;
     } else if (trueOrFalse == 1) {
@@ -318,197 +309,230 @@ class Main {
     }
 
     trueOrFalse = random.nextInt(2);
-    System.out.println(trueOrFalse);
 
 
-      if (trueOrFalse == 0) {
-        isNight = false;
-      } else if (trueOrFalse == 1) {
-        isNight = true;
-      }
+    if (trueOrFalse == 0) {
+      isNight = false;
+    } else if (trueOrFalse == 1) {
+      isNight = true;
+    }
 
-      if (isNight != false) {
-        if (fighterName1.isNocturnal()) {
-          attackValueP1 += 5;
-          defenseValueP1 += 5;
-          dodgePercentP1 += 5;
-          
-        } else {
-          attackValueP1 -= 5;
-          defenseValueP1 -= 7;
-          dodgePercentP1 -= 15;
-        }
-        if (fighterName2.isNocturnal()) {
-          attackValueP2 += 5;
-          defenseValueP2 += 5;
-          dodgePercentP2 += 5;
-          
-        } else {
-          attackValueP2 -= 5;
-          defenseValueP2 -= 7;
-          dodgePercentP2 -= 15;
-        }
+    if (isNight != false) {
+      if (fighterName1.isNocturnal()) {
+        attackValueP1 += 5;
+        defenseValueP1 += 5;
+        dodgePercentP1 += 5;
+        
       } else {
-        if (fighterName1.isNocturnal()) {
-          attackValueP1 -= 5;
-          defenseValueP1 -= 7;
-          dodgePercentP1 -= 15;
+        attackValueP1 -= 5;
+        defenseValueP1 -= 7;
+        dodgePercentP1 -= 15;
+      }
+      if (fighterName2.isNocturnal()) {
+        attackValueP2 += 5;
+        defenseValueP2 += 5;
+        dodgePercentP2 += 5;
           
-        } else {
-          attackValueP1 += 5;
-          defenseValueP1 += 5;
-          dodgePercentP1 += 5;
-        }
-        if (fighterName2.isNocturnal()) {
-          attackValueP2 -= 5;
-          defenseValueP2 -= 7;
-          dodgePercentP2 -= 15;
+      } else {
+        attackValueP2 -= 5;
+        defenseValueP2 -= 7;
+        dodgePercentP2 -= 15;
+      }
+    } else {
+      if (fighterName1.isNocturnal()) {
+        attackValueP1 -= 5;
+        defenseValueP1 -= 7;
+        dodgePercentP1 -= 15;
           
-        } else {
-          attackValueP2 += 5;
-          defenseValueP2 += 5;
-          dodgePercentP2 += 5;
-        }
+      } else {
+        attackValueP1 += 5;
+        defenseValueP1 += 5;
+        dodgePercentP1 += 5;
+      }
+      if (fighterName2.isNocturnal()) {
+        attackValueP2 -= 5;
+        defenseValueP2 -= 7;
+        dodgePercentP2 -= 15;
+          
+      } else {
+        attackValueP2 += 5;
+        defenseValueP2 += 5;
+        dodgePercentP2 += 5;
+      }
+    }
+
+      
+    if (dodgePercentP1 > 50) {
+      dodgePercentP1 = 50;
+    }
+
+    if (dodgePercentP2 > 50) {
+      dodgePercentP2 = 50;
+    }
+
+    if (armour1 != -1) {
+      var f1armour = listofarmour[armour1];
+      armourProtection[0] = f1armour.protection();
+      defenseValueP1 += armourProtection[0];
+      f1armourDurability = f1armour.durability();
+      if (f1armour.hardness() > 2) {
+        minArmour[0] = f1armour.hardness() - 3;
+        maxArmour[0] = f1armour.hardness() + 3;
+      }
+      if (f1armour.isHeavy()) {
+        dodgePercentP1 -= 7;
+      }
+    }
+
+    if (armour2 != -1) {
+      var f2armour = listofarmour[armour2];
+      armourProtection[1] = f2armour.protection();
+      defenseValueP2 += armourProtection[1];
+      f2armourDurability = f2armour.durability();
+      if (f2armour.hardness() > 2) {
+        minArmour[1] = f2armour.hardness() - 3;
+        maxArmour[1] = f2armour.hardness() + 3;
+      }
+      if (f2armour.isHeavy()) {
+        dodgePercentP2 -= 7;
+      }
+    }
+ 
+
+    while (healthPointsP1 > 0 && healthPointsP2 > 0) {
+      dodgeChance = random.nextInt(100);
+      System.out.println(dodgeChance);
+      damage = attackValueP1 - (defenseValueP2 / 2);
+      if (dodgeChance < dodgePercentP1) {
+        System.out.println("Player 1's " + combatants[fighter1] + " attacked Player 2's " + combatants[fighter2] + ", but " + combatants[fighter2] + " dodged out of the way.");
+      } else {
+        healthPointsP2 -= damage;
+        System.out.println("Player 1's " + combatants[fighter1] + " attacks Player 2's " + combatants[fighter2] + " dealing " + damage + " damage.");
       }
 
-
-      System.out.println(attackValueP1);
-      System.out.println(defenseValueP2);
-      //fights the animals
-      while (healthPointsP1 > 0 && healthPointsP2 > 0) {
+      if (swordBroke[0] != true) {
+        if (sword1 != -1) {
+          swordDurability[0] -= random.nextInt(maxArmour[1] - minArmour[1]) + minArmour[1];
+          if (swordDurability[0] < 1) {
+            attackValueP1 -= swordDamage[0];
+            System.out.println("Player 1's sword has broken.");
+            swordBroke[0] = true;
+          }
+        }
+      } 
+      if (armourBroke[0] != true) {
+        if (armour1 != -1) {
+          f1armourDurability -= random.nextInt(maxP2Sword - minP2Sword) + minP2Sword;
+          if (f1armourDurability < 1) {
+            defenseValueP1 -= armourProtection[0];
+            System.out.println("Player 1's armour has broken.");
+            armourBroke[0] = true;
+          }
+        }
+      }
+      if (healthPointsP2 > 0) {
         dodgeChance = random.nextInt(100);
         System.out.println(dodgeChance);
-        damage = attackValueP1 - (defenseValueP2 / 2);
-        if (dodgeChance < dodgePercentP1) {
-          System.out.println("Player 1's " + combatants[fighter1] + " attacked Player 2's " + combatants[fighter2] + ", but " + combatants[fighter2] + " dodged out of the way.");
+        damage = attackValueP2 - (defenseValueP1 / 2);
+        if (dodgeChance < dodgePercentP2) {
+          System.out.println("Player 2's " + combatants[fighter2] + " attacked Player 1's " + combatants[fighter1] + " ,but " + combatants[fighter1] + " dodged out of the way.");
         } else {
           healthPointsP2 -= damage;
-          System.out.println("Player 1's " + combatants[fighter1] + " attacks Player 2's " + combatants[fighter2] + " dealing " + damage + " damage.");
+          System.out.println("Player 2's " + combatants[fighter2] + " attacks Player 1's " + combatants[fighter1] + " dealing " + damage + " damage.");
         }
-
-        if (swordBroke[0] != true) {
-          if (sword1 != -1) {
-            swordDurability[0] -= random.nextInt(maxArmour[1] - minArmour[1]) + minArmour[1];
-            if (swordDurability[0] < 1) {
-              attackValueP1 -= swordDamage[0];
-              System.out.println("Player 1's sword has broken.");
-              swordBroke[0] = true;
-            }
-          }
-        } 
-        if (armourBroke[0] != true) {
-          if (armour1 != -1) {
-            f1armourDurability -= random.nextInt(maxP2Sword - minP2Sword) + minP2Sword;
-            if (f1armourDurability < 1) {
-              defenseValueP1 -= armourProtection[0];
-              System.out.println("Player 1's armour has broken.");
-              armourBroke[0] = true;
+        if (swordBroke[1] != true) {
+          if (sword2 != -1) {
+            swordDurability[1] -= random.nextInt(maxArmour[0] - minArmour[0]) + minArmour[0];
+            if (swordDurability[1] < 1) {
+              attackValueP2 -= swordDamage[1];
+              System.out.println("Player 2's sword has broken.");
+              swordBroke[1] = true;
             }
           }
         }
-        if (healthPointsP2 > 0) {
-          dodgeChance = random.nextInt(100);
-          System.out.println(dodgeChance);
-          damage = attackValueP2 - (defenseValueP1 / 2);
-          if (dodgeChance < dodgePercentP2) {
-            System.out.println("Player 2's " + combatants[fighter2] + " attacked Player 1's " + combatants[fighter1] + " ,but " + combatants[fighter1] + " dodged out of the way.");
-          } else {
-            healthPointsP2 -= damage;
-            System.out.println("Player 2's " + combatants[fighter2] + " attacks Player 1's " + combatants[fighter1] + " dealing " + damage + " damage.");
-          }
-          if (swordBroke[1] != true) {
-            if (sword2 != -1) {
-              swordDurability[1] -= random.nextInt(maxArmour[0] - minArmour[0]) + minArmour[0];
-              if (swordDurability[1] < 1) {
-                attackValueP2 -= swordDamage[1];
-                System.out.println("Player 2's sword has broken.");
-                swordBroke[1] = true;
-              }
-            }
-          }
-          if (armourBroke[1] != true) {
-            if (armour2 != -1) {
-              f2armourDurability -= random.nextInt(maxP1Sword - minP1Sword) + minP1Sword;
-              if (f2armourDurability < 1) {
-                defenseValueP2 -= armourProtection[1];
-                System.out.println("PLayer 2's armour has broken.");
-                armourBroke[1] = true;
-              }
+        if (armourBroke[1] != true) {
+          if (armour2 != -1) {
+            f2armourDurability -= random.nextInt(maxP1Sword - minP1Sword) + minP1Sword;
+            if (f2armourDurability < 1) {
+              defenseValueP2 -= armourProtection[1];
+              System.out.println("Player 2's armour has broken.");
+              armourBroke[1] = true;
             }
           }
         }
       }
+    }
 
-      if (isRaining != false) {
-        attackValueP1 += 5;
-        defenseValueP1 += 10;
-        dodgePercentP1 += 20;
-        attackValueP2 += 5;
-        defenseValueP2 += 10;
-        dodgePercentP2 += 20;
-      }
+    if (isRaining != false) {
+      attackValueP1 += 5;
+      defenseValueP1 += 10;
+      dodgePercentP1 += 20;
+      attackValueP2 += 5;
+      defenseValueP2 += 10;
+      dodgePercentP2 += 20;
+    }
 
-      if (isNight != false) {
-        if (fighterName1.isNocturnal()) {
-          attackValueP1 -= 5;
-          defenseValueP1 -= 5;
-          dodgePercentP1 -= 5;
-          
-        } else {
-          attackValueP1 += 5;
-          defenseValueP1 += 7;
-          dodgePercentP1 += 15;
-        }
-        if (fighterName2.isNocturnal()) {
-          attackValueP2 -= 5;
-          defenseValueP2 -= 5;
-          dodgePercentP2 -= 5;
-          
-        } else {
-          attackValueP2 += 5;
-          defenseValueP2 += 7;
-          dodgePercentP2 += 15;
-        }
+    if (isNight != false) {
+      if (fighterName1.isNocturnal()) {
+        attackValueP1 -= 5;
+        defenseValueP1 -= 5;
+        dodgePercentP1 -= 5;
+        
       } else {
-          if (fighterName1.isNocturnal()) {
-          attackValueP1 += 5;
-          defenseValueP1 += 7;
-          dodgePercentP1 += 15;
-          
-        } else {
-          attackValueP1 -= 5;
-          defenseValueP1 -= 5;
-          dodgePercentP1 -= 5;
-        }
-        if (fighterName2.isNocturnal()) {
-          attackValueP2 += 5;
-          defenseValueP2 += 7;
-          dodgePercentP2 += 15;
-          
-        } else {
-          attackValueP2 -= 5;
-          defenseValueP2 -= 5;
-          dodgePercentP2 -= 5;
-        }
+        attackValueP1 += 5;
+        defenseValueP1 += 7;
+        dodgePercentP1 += 15;
       }
+      if (fighterName2.isNocturnal()) {
+        attackValueP2 -= 5;
+        defenseValueP2 -= 5;
+        dodgePercentP2 -= 5;
+          
+      } else {
+        attackValueP2 += 5;
+        defenseValueP2 += 7;
+        dodgePercentP2 += 15;
+      }
+    } else {
+      if (fighterName1.isNocturnal()) {
+        attackValueP1 += 5;
+        defenseValueP1 += 7;
+        dodgePercentP1 += 15;
+          
+      } else {
+        attackValueP1 -= 5;
+        defenseValueP1 -= 5;
+        dodgePercentP1 -= 5;
+      
+      } if (fighterName2.isNocturnal()) {
+        attackValueP2 += 5;
+        defenseValueP2 += 7;
+        dodgePercentP2 += 15;
+        
+      } else {
+        attackValueP2 -= 5;
+        defenseValueP2 -= 5;
+        dodgePercentP2 -= 5;
+      }
+    }
       
 
       //prints who won the fight
-      if (healthPointsP1 < 1) {
-        System.out.println("Player 2 wins this battle!");
-        winnings = random.nextInt(50 - 10) + 10;
-        player2money += winnings;
-        System.out.println("You won " + winnings + " coins for beating your opponent.");
-        fighter1 = -1;
+    if (healthPointsP1 < 1) {
+      System.out.println("Player 2 wins this battle!");
+      winnings = random.nextInt(50 - 10) + 10;
+      player2money += winnings;
+      System.out.println("You won " + winnings + " coins for beating your opponent.");
+      fighter1 = -1;
 
-      } else if (healthPointsP2 < 1) {
-        System.out.println("Player 1 wins this battle!");
-        winnings = random.nextInt(50 - 10) + 10;
-        player1money += winnings;
-        System.out.println("You won " + winnings + " coins for beating your opponent.");
-        fighter2 = -1;
-      }
+    } else if (healthPointsP2 < 1) {
+      System.out.println("Player 1 wins this battle!");
+      winnings = random.nextInt(50 - 10) + 10;
+      player1money += winnings;
+      System.out.println("You won " + winnings + " coins for beating your opponent.");
+      fighter2 = -1;
     }
+  
     if (fighter1 != -1) {
       System.out.println("Player 1 wins!");
     } else if (fighter2 != -1) {
@@ -693,37 +717,7 @@ class Main {
 }
 
 
-
-
-/*
-  public static int   
-    if (i == 1) {
-      if (player1money - listofanimals[fighter1].price() > 0) {
-        System.out.println("You chose the " + combatants[fighter1]);
-        player1money -= listofanimals[fighter1].price();
-        return player1money;
-      } else {
-        System.out.println("You don't have enough money to buy this item!");
-      }
-    } else if (i == 2) {
-      if (player2money - listofanimals[fighter2].price() > 0) {
-        System.out.println("You chose the " + combatants[fighter2]);
-        player2money -= listofanimals[fighter2].price();
-        return player2money;
-      } else {
-        System.out.println("You don't have enough money to buy this item!");
-      }
-    }
-    return -1;
-*/
-
-    
-  
-
-
-
-
-  
-
-  
  //close class Main
+
+
+

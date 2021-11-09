@@ -44,8 +44,8 @@ public class Dog extends Animal implements IFightable, ISellable {
     return 37;
   }
 
-  public double size() {
-    return 1.07;
+  public int size() {
+    return 107;
   }
 
   public int dodgePercent() {
