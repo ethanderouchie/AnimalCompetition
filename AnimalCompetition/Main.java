@@ -30,15 +30,19 @@ class Main {
     int winnings = 0;
     int f1armourDurability = 0;
     int f2armourDurability = 0;
+    int dodgeChance = 0;
+    int damage = 0;
     boolean isRaining = false;
     boolean isNight = true;
 
     boolean swordBroke[] = new boolean [2]; 
     swordBroke[0] = false;
     swordBroke[1] = false;
+
     boolean armourBroke[] = new boolean [2]; 
     armourBroke[0] = false;
     armourBroke[1] = false;
+
     int armourProtection[] = new int [2]; 
     armourProtection[0] = 0;
     armourProtection[1] = 0;
@@ -161,6 +165,7 @@ class Main {
                   player1money -= listofanimals[fighter1].price();
                 } else {
                   System.out.println("You don't have enough money to buy this item!");
+                  fighter1 = -1;
                 }
               } else if (i == 2) {
                 fighter2 = getPlayerChoice(combatants, AL_AnimalsSize);
@@ -169,6 +174,7 @@ class Main {
                   player2money -= listofanimals[fighter2].price();
                 } else {
                   System.out.println("You don't have enough money to buy this item!");
+                  fighter2 = -1;
                 }
               }
             } 
@@ -219,96 +225,101 @@ class Main {
         moveAroundTown = 0;
         i = canPlayerLeave(fighter1, fighter2, i);
       }
-    }      
-      int minP1Sword = 0;
-      int maxP1Sword = 5;
-      int minP2Sword = 0;
-      int maxP2Sword = 5;
+          
+    int minP1Sword = 0;
+    int maxP1Sword = 5;
+    int minP2Sword = 0;      
+    int maxP2Sword = 5;
 
       //gives player 1's animal their stats and sword and gives player 2's animal their stats and sword
       
-      var fighterName1 = (IFightable)listofanimals[fighter1];
-      int attackValueP1 = fighterName1.attackPoints();
-      int defenseValueP1 = fighterName1.defensePoints();
-      int healthPointsP1 = fighterName1.health();
-      int dodgePercentP1 = fighterName1.dodgePercent();
-      boolean isNocturalP1 = fighterName1.isNocturnal();
+      
+    var fighterName1 = (IFightable)listofanimals[fighter1];
+    int attackValueP1 = fighterName1.attackPoints();
+    int defenseValueP1 = fighterName1.defensePoints();
+    int healthPointsP1 = fighterName1.health();
+    int dodgePercentP1 = fighterName1.dodgePercent();
 
-      var fighterName2 = (IFightable)listofanimals[fighter2];
-      int attackValueP2 = fighterName2.attackPoints();
-      int defenseValueP2 = fighterName2.defensePoints();
-      int healthPointsP2 = fighterName2.health();
-      int dodgePercentP2 = fighterName2.dodgePercent();
-      boolean isNocturalP2 = fighterName2.isNocturnal();
+    var fighterName2 = (IFightable)listofanimals[fighter2];
+    int attackValueP2 = fighterName2.attackPoints();
+    int defenseValueP2 = fighterName2.defensePoints();
+    int healthPointsP2 = fighterName2.health();
+    int dodgePercentP2 = fighterName2.dodgePercent();
 
-      if (sword1 != -1) {
-        var f1sword = listofswords[sword1];
-        swordDamage[0] = f1sword.damage();
-        attackValueP1 += swordDamage[0];
-        swordDurability[0] = f1sword.durability();
-        if (f1sword.piercing() > 2) {
-          minArmour[0] = f1sword.piercing() - 3;
-          maxP1Sword = f1sword.piercing() + 3;
-        }
+
+    if (sword1 != -1) {
+      var f1sword = listofswords[sword1];
+      swordDamage[0] = f1sword.damage();
+      attackValueP1 += swordDamage[0];
+      swordDurability[0] = f1sword.durability();
+      if (f1sword.piercing() > 2) {
+        minArmour[0] = f1sword.piercing() - 3;
+        maxP1Sword = f1sword.piercing() + 3;
       }
+    }
 
-      if (sword2 != -1) {
-        var f2sword = listofswords[sword2];
-        swordDamage[1] = f2sword.damage();
-        attackValueP2 += swordDamage[1];
-        swordDurability[1] = f2sword.durability();
-        if (f2sword.piercing() > 2) {
-          minArmour[1] = f2sword.piercing() - 3;
-          maxP2Sword = f2sword.piercing() + 3;
-        }
+
+    if (sword2 != -1) {
+      var f2sword = listofswords[sword2];
+      swordDamage[1] = f2sword.damage();
+      attackValueP2 += swordDamage[1];
+      swordDurability[1] = f2sword.durability();
+      if (f2sword.piercing() > 2) {
+        minArmour[1] = f2sword.piercing() - 3;
+        maxP2Sword = f2sword.piercing() + 3;
       }
+    }
 
-      if (sword1 == -1) {
-        swordBroke[0] = true;
+    if (sword1 == -1) {
+      swordBroke[0] = true;
+    }
+
+    if (sword2 == -1) {
+      swordBroke[1] = true;
+    }
+
+    if (armour1 != -1) {
+      var f1armour = listofarmour[armour1];
+      armourProtection[0] = f1armour.protection();
+      defenseValueP1 += armourProtection[0];
+      f1armourDurability = f1armour.durability();
+      if (f1armour.hardness() > 2) {
+        minArmour[0] = f1armour.hardness() - 3;
+        maxArmour[0] = f1armour.hardness() + 3;
       }
+    }
 
-      if (sword2 == -1) {
-        swordBroke[1] = true;
+    if (armour2 != -1) {
+      var f2armour = listofarmour[armour2];
+      armourProtection[1] = f2armour.protection();
+      defenseValueP2 += armourProtection[1];
+      f2armourDurability = f2armour.durability();
+      if (f2armour.hardness() > 2) {
+        minArmour[1] = f2armour.hardness() - 3;
+        maxArmour[1] = f2armour.hardness() + 3;
       }
+    }
 
-      if (armour1 != -1) {
-        var f1armour = listofarmour[armour1];
-        armourProtection[0] = f1armour.protection();
-        defenseValueP1 += armourProtection[0];
-        f1armourDurability = f1armour.durability();
-        if (f1armour.hardness() > 2) {
-          minArmour[0] = f1armour.hardness() - 3;
-          maxArmour[0] = f1armour.hardness() + 3;
-        }
-      }
+    int trueOrFalse = random.nextInt(2);
+    System.out.println(trueOrFalse);
+    if (trueOrFalse == 0) {
+      isRaining = false;
+    } else if (trueOrFalse == 1) {
+      isRaining = true;
+    }
 
-      if (armour2 != -1) {
-        var f2armour = listofarmour[armour2];
-        armourProtection[1] = f2armour.protection();
-        defenseValueP2 += armourProtection[1];
-        f2armourDurability = f2armour.durability();
-        if (f2armour.hardness() > 2) {
-          minArmour[1] = f2armour.hardness() - 3;
-          maxArmour[1] = f2armour.hardness() + 3;
-        }
-      }
+    if (isRaining != false) {
+      attackValueP1 -= 5;
+      defenseValueP1 -= 10;
+      dodgePercentP1 -= 20;
+      attackValueP2 -= 5;
+      defenseValueP2 -= 10;
+      dodgePercentP2 -= 20;
+    }
 
-      int trueOrFalse = random.nextInt(2);
+    trueOrFalse = random.nextInt(2);
+    System.out.println(trueOrFalse);
 
-      if (trueOrFalse == 0) {
-        isRaining = false;
-      } else if (trueOrFalse == 1) {
-        isRaining = true;
-      }
-
-      if (isRaining != false) {
-        attackValueP1 -= 5;
-        defenseValueP1 -= 10;
-        dodgePercentP1 -= 20;
-        attackValueP2 -= 5;
-        defenseValueP2 -= 10;
-        dodgePercentP2 -= 20;
-      }
 
       if (trueOrFalse == 0) {
         isNight = false;
@@ -338,7 +349,7 @@ class Main {
           dodgePercentP2 -= 15;
         }
       } else {
-          if (fighterName1.isNocturnal()) {
+        if (fighterName1.isNocturnal()) {
           attackValueP1 -= 5;
           defenseValueP1 -= 7;
           dodgePercentP1 -= 15;
@@ -359,11 +370,22 @@ class Main {
           dodgePercentP2 += 5;
         }
       }
-      
+
+
+      System.out.println(attackValueP1);
+      System.out.println(defenseValueP2);
       //fights the animals
       while (healthPointsP1 > 0 && healthPointsP2 > 0) {
-        healthPointsP2 = healthPointsP2 - (attackValueP1 - (defenseValueP2 / 2));
-        System.out.println("Player 1's " + combatants[fighter1] + " attacks Player 2's " + combatants[fighter2]);
+        dodgeChance = random.nextInt(100);
+        System.out.println(dodgeChance);
+        damage = attackValueP1 - (defenseValueP2 / 2);
+        if (dodgeChance < dodgePercentP1) {
+          System.out.println("Player 1's " + combatants[fighter1] + " attacked Player 2's " + combatants[fighter2] + ", but " + combatants[fighter2] + " dodged out of the way.");
+        } else {
+          healthPointsP2 -= damage;
+          System.out.println("Player 1's " + combatants[fighter1] + " attacks Player 2's " + combatants[fighter2] + " dealing " + damage + " damage.");
+        }
+
         if (swordBroke[0] != true) {
           if (sword1 != -1) {
             swordDurability[0] -= random.nextInt(maxArmour[1] - minArmour[1]) + minArmour[1];
@@ -385,8 +407,15 @@ class Main {
           }
         }
         if (healthPointsP2 > 0) {
-          System.out.println("Player 2's " + combatants[fighter2] + " attacks Player 1's "+ combatants[fighter1]);
-          healthPointsP1 = healthPointsP1 - (attackValueP2 - (defenseValueP1 / 2));
+          dodgeChance = random.nextInt(100);
+          System.out.println(dodgeChance);
+          damage = attackValueP2 - (defenseValueP1 / 2);
+          if (dodgeChance < dodgePercentP2) {
+            System.out.println("Player 2's " + combatants[fighter2] + " attacked Player 1's " + combatants[fighter1] + " ,but " + combatants[fighter1] + " dodged out of the way.");
+          } else {
+            healthPointsP2 -= damage;
+            System.out.println("Player 2's " + combatants[fighter2] + " attacks Player 1's " + combatants[fighter1] + " dealing " + damage + " damage.");
+          }
           if (swordBroke[1] != true) {
             if (sword2 != -1) {
               swordDurability[1] -= random.nextInt(maxArmour[0] - minArmour[0]) + minArmour[0];
@@ -479,6 +508,7 @@ class Main {
         System.out.println("You won " + winnings + " coins for beating your opponent.");
         fighter2 = -1;
       }
+    }
     if (fighter1 != -1) {
       System.out.println("Player 1 wins!");
     } else if (fighter2 != -1) {
