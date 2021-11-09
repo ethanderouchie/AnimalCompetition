@@ -15,5 +15,14 @@ Heavy armour takes away from dodge ability, but adds to protection
 
 already done:
 
-isFaster affects dodgePercent
+- speed
+- size
+- Heavy Armour
+- isNocturnal
+- 
+
+envior
+
+- rain
+- day / night
 
