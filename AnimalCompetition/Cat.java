@@ -1,7 +1,7 @@
 public class Cat extends Animal implements IFightable, ISellable {
 
   public String species() {
-    return "cat";
+    return "Cat";
   }
 
   public boolean canAttack() {
@@ -44,8 +44,12 @@ public class Cat extends Animal implements IFightable, ISellable {
     return 48;
   }
 
-  public double size() {
-    return 0.41;
+  public int size() {
+    return 41;
+  }
+
+  public int dodgePercent() {
+    return 30;
   }
 
 }
