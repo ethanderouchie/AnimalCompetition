@@ -8,6 +8,7 @@ class Main {
     int numberOfAnimals = 2;
     int fighter1 = -1;
     int fighter2 = -1;
+    int trueOrFalse = -1;
     //player1's sword and player2/AI's sword.
     int sword1 = -1;
     int sword2 = -1;
@@ -39,7 +40,7 @@ class Main {
     int damage = 0;
     int baseHealthP1 = 0;
     int baseHealthP2 = 0;
-    boolean sandboxOrCompetition = true;
+    boolean isCompetition = true;
     boolean isRaining = false;
     boolean isNight = true;
 
@@ -72,27 +73,45 @@ class Main {
     maxArmour[1] = 5;
     
     System.out.println("Would you like to play competiton mode against another human or play sandbox mode?");
-    System.out.println("1. Competition Mode.");
-    System.out.println("2. Sandbox Mode.");
-    trueOrFalse
 
-    
 
-    //finds if the user wants to face human or ai
-    System.out.println("Are you facing a human or the AI?");
     while (true) {
-      System.out.println("Type 1 for human, Type 2 for AI.");
-      humanOrAI = scanner.nextInt();
-      if (humanOrAI == 2) {
-        break;
+      System.out.println("1. Competition Mode.");
+      System.out.println("2. Sandbox Mode.");
+      System.out.println("3. Explain Competition Mode.");
+      System.out.println("4. Explain Sandbox Mode.");
+      trueOrFalse = scanner.nextInt();
+      if (trueOrFalse == 1) {
+        isCompetition = true;
+      } else if (trueOrFalse == 2) {
+        isCompetition = false;
+      } else if (trueOrFalse == 3) {
+        System.out.println("Competition mode is a 1 on 1 competiton where you and another human player take turns spending coins on buying animals and giving them armour and weapons. Then, your animals fight to the death until one of them dies. This continues until one player runs out of money to buy any more animals.");
+      } else if (trueOrFalse == 4) {
+        System.out.println("Sandbox mode works similarly to competition mode, except there is no money and you can play with another person, with an AI, or buy yourself.");
       }
-      else if (humanOrAI == 1) {
-        isFacingHuman = true;
-        break;
-      }
-    } 
+    }
+  
 
     
+
+    if (isComeptition = false) {
+      System.out.println("Are you facing a human, the AI?, or yourself?");
+      while (true) {
+        System.out.println("1. Human \s 2. AI \s 3. Solo");
+        humanOrAI = scanner.nextInt();
+        if (humanOrAI == 2) {
+          break;
+        }
+        else if (humanOrAI == 1) {
+          isFacingHuman = true;
+          break;
+        } else if 
+      } 
+    }
+
+    
+
     //adds animal objects to an array
     var listofanimals = new Animal[] {
       new Raccoon(),
@@ -294,6 +313,7 @@ class Main {
         }
         moveAroundTown = 0;
         i = canPlayerLeave(fighter1, fighter2, i);
+        
       }
     
           
@@ -442,7 +462,7 @@ class Main {
 
       
 
-      int trueOrFalse = random.nextInt(2);
+      trueOrFalse = random.nextInt(2);
       if (trueOrFalse == 0) {
         isRaining = false;
       } else if (trueOrFalse == 1) {
