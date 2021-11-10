@@ -13,15 +13,15 @@ public class Dog extends Animal implements IFightable, ISellable {
   }
 
   public int health() {
-    return 70;
+    return 140;
   }
 
   public int attackPoints() {
-    return 10;
+    return 40;
   }
 
   public int defensePoints() {
-    return 3;
+    return 25;
   }
 
   public int price() {
@@ -51,5 +51,12 @@ public class Dog extends Animal implements IFightable, ISellable {
   public int dodgePercent() {
     return 25;
   }
+
+  public int stealth() {
+    return 2;
+  }
   
+  public int strength() {
+    return 6;
+  }
 }

@@ -13,15 +13,15 @@ public class Cat extends Animal implements IFightable, ISellable {
   }
 
   public int health() {
-    return 50;
+    return 140;
   }
 
   public int attackPoints() {
-    return 8;
+    return 30;
   }
 
   public int defensePoints() {
-    return 7;
+    return 25;
   }
 
   public int price() {
@@ -50,6 +50,14 @@ public class Cat extends Animal implements IFightable, ISellable {
 
   public int dodgePercent() {
     return 30;
+  }
+
+  public int stealth() {
+    return 6;
+  }
+
+  public int strength() {
+    return 5;
   }
 
 }
