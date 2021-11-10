@@ -66,8 +66,8 @@ class Main {
     minArmour[1] = 0;
 
     int maxArmour[] = new int [2];
-    minArmour[0] = 5;
-    minArmour[1] = 5;
+    maxArmour[0] = 5;
+    maxArmour[1] = 5;
     
 
     //finds if the user wants to face human or ai
@@ -214,6 +214,7 @@ class Main {
             while (moveInShops == 1) { //buy swords
               for (var sword: swords) {
                 System.out.println(String.format(counter + ". %s, %s damage, %s durability, %s coins", sword.type(), sword.damage(), sword.durability(), sword.price()));
+                counter++;
               }
               System.out.println(counter + ". Leave sword selection.");
               counter = 1;
@@ -225,7 +226,7 @@ class Main {
                 if (player1money - listofswords[buySword].price() > 0) {
                   System.out.println("You chose the " + weapons[buySword]);
                   player1money -= listofswords[buySword].price();
-                  sword2 = buySword;
+                  sword1 = buySword;
                 } else {
                   System.out.println("You don't have enough money to buy this item!");
                   buySword = -1;
@@ -244,7 +245,8 @@ class Main {
               
             } while (moveInShops == 2) { 
               for (var armour: armours) {
-                System.out.println(String.format("%s, %s protection, %s durability, %s coins.", armour.type(), armour.protection(), armour.durability(), armour.price()));
+                System.out.println(String.format(counter + ". %s, %s protection, %s durability, %s coins.", armour.type(), armour.protection(), armour.durability(), armour.price()));
+                counter++;
               }
               buyArmour = getPlayerArmour(protection, AL_ArmoursSize);
               if (buyArmour == 6) {
@@ -484,6 +486,8 @@ class Main {
 
       if (swordBroke[0] != true) {
         if (sword1 != -1) {
+          System.out.println(maxArmour[1]);
+          System.out.println(minArmour[1]);
           swordDurability[0] -= random.nextInt(maxArmour[1] - minArmour[1]) + minArmour[1];
           if (swordDurability[0] < 1) {
             attackValueP1 -= swordDamage[0];
