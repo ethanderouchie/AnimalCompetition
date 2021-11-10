@@ -74,6 +74,8 @@ class Main {
     System.out.println("Would you like to play competiton mode against another human or play sandbox mode?");
     System.out.println("1. Competition Mode.");
     System.out.println("2. Sandbox Mode.");
+    trueOrFalse
+
     
 
     //finds if the user wants to face human or ai
