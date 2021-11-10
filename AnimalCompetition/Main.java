@@ -83,8 +83,10 @@ class Main {
       trueOrFalse = scanner.nextInt();
       if (trueOrFalse == 1) {
         isCompetition = true;
+        break;
       } else if (trueOrFalse == 2) {
         isCompetition = false;
+        break;
       } else if (trueOrFalse == 3) {
         System.out.println("Competition mode is a 1 on 1 competiton where you and another human player take turns spending coins on buying animals and giving them armour and weapons. Then, your animals fight to the death until one of them dies. This continues until one player runs out of money to buy any more animals.");
       } else if (trueOrFalse == 4) {
@@ -95,18 +97,19 @@ class Main {
 
     
 
-    if (isComeptition = false) {
+    if (isCompetition != true) {
       System.out.println("Are you facing a human, the AI?, or yourself?");
       while (true) {
-        System.out.println("1. Human \s 2. AI \s 3. Solo");
+        System.out.println("1. Human"); 
+        System.out.println("2. AI"); 
+        System.out.println("3. Solo");
         humanOrAI = scanner.nextInt();
-        if (humanOrAI == 2) {
+        if (humanOrAI == 1) {
           break;
-        }
-        else if (humanOrAI == 1) {
-          isFacingHuman = true;
+        } else if (humanOrAI == 2) {
           break;
-        } else if 
+        } else if (humanOrAI == 3)
+          break;
       } 
     }
 
@@ -176,7 +179,7 @@ class Main {
 
 
     System.out.println("It is now player 1's turn to buy items.");
-    while (player1money >= lowestAnimalCost && player2money >= lowestAnimalCost) {
+    while (player1money >= lowestAnimalCost && player2money >= lowestAnimalCost && isCompetition != false    {
       for (int i = 1; i <= 2; i++) { //allows for each player to get a turn buying equipment each round
         while (moveAroundTown != 4) { //4 exits the town and lets player2 decide what to buy
           moveAroundTown = townMovement();
@@ -743,7 +746,7 @@ class Main {
 
   } //close main method
 
-  public static int getPlayerChoice(String combatants[], int AL_AnimalsSize) {
+  public static int getPlayerChoice (String combatants[], int AL_AnimalsSize) {
     Scanner scanner = new Scanner (System.in);
     String chosenFighter = "";
     int chooseFighter = -1;
