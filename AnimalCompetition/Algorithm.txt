@@ -12,6 +12,9 @@ Heavy armour takes away from dodge ability, but adds to protection
 
 
 
+strength
+
+
 
 already done:
 
@@ -19,7 +22,12 @@ already done:
 - size
 - Heavy Armour
 - isNocturnal
-- 
+- Health
+
+need to do
+
+- strength
+
 
 envior
 
