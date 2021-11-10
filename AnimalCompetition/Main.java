@@ -43,6 +43,7 @@ class Main {
     boolean isCompetition = true;
     boolean isRaining = false;
     boolean isNight = true;
+    boolean quitGame = false;
 
     boolean swordBroke[] = new boolean [2]; 
     swordBroke[0] = false;
@@ -179,7 +180,7 @@ class Main {
 
 
     System.out.println("It is now player 1's turn to buy items.");
-    while (player1money >= lowestAnimalCost && player2money >= lowestAnimalCost) {
+    while (player1money >= lowestAnimalCost && player2money >= lowestAnimalCost && quitGame != true) {
       for (int i = 1; i <= 2; i++) { //allows for each player to get a turn buying equipment each round
         while (moveAroundTown != 4) { //4 exits the town and lets player2 decide what to buy
           moveAroundTown = townMovement();
@@ -328,15 +329,16 @@ class Main {
               break; 
             }
           }
+
+          while (moveAroundTown == 5) {
+            quitGame = true;
+          }
         }
         moveAroundTown = 0;
         i = canPlayerLeave(fighter1, fighter2, i);
         
       }
 
-      System.out.println("AHHH");
-    
-          
       int minP1Sword = 0;
       int maxP1Sword = 5;
       int minP2Sword = 0;      
@@ -600,14 +602,12 @@ class Main {
         currentAttacker = random.nextInt(2);
       }
 
-    
     while (healthPointsP1 > 0 && healthPointsP2 > 0) {
       while (currentAttacker % 2 != 0) {
         dodgeChance = random.nextInt(100);
-        if (dodgeChance < dodgePercentP1) {
+        if (dodgeChance < dodgePercentP2) {
           System.out.println("Player 1's " + combatants[fighter1] + " attacked Player 2's " + combatants[fighter2] + ", but " + combatants[fighter2] + " dodged out of the way.");
         } else {
-
           if (healthPointsP1 > baseHealthP1 * 0.9) {
             damage = attackValueP1 - (defenseValueP2 / 2);
           } else if (healthPointsP1 > baseHealthP1 * 0.7) {
@@ -646,21 +646,17 @@ class Main {
       while (currentAttacker % 2 == 0) {
         if (healthPointsP2 > 0) {
           dodgeChance = random.nextInt(100);
-          if (dodgeChance < dodgePercentP2) {
-            System.out.println("Player 2's " + combatants[fighter2] + " attacked Player 1's " + combatants[fighter1] + " ,but " + combatants[fighter1] + " dodged out of the way.");
+          if (dodgeChance < dodgePercentP1) {
+            System.out.println("Player 2's " + combatants[fighter2] + " attacked Player 1's " + combatants[fighter1] + ", but " + combatants[fighter1] + " dodged out of the way.");
           } else {
             if (healthPointsP1 > baseHealthP1 * 0.9) {
               damage = attackValueP1 - (defenseValueP1 / 2);
-              System.out.println("A");
             } else if (healthPointsP1 > baseHealthP2 * 0.7) {
               damage = attackValueP1 - (defenseValueP1 / 2) + 5;
-              System.out.println("B");
             } else if (healthPointsP1 > baseHealthP2 * 0.5 ) {
               damage = attackValueP1 - (defenseValueP1 / 2) - 2;
-              System.out.println("C");
             } else if (healthPointsP1 > baseHealthP2 * 0.2) {
               damage = attackValueP1 - (defenseValueP1 / 2) - 7;
-              System.out.println("D");
             }
             healthPointsP1 -= damage;
             System.out.println("Player 2's " + combatants[fighter2] + " attacks Player 1's " + combatants[fighter1] + " dealing " + damage + " damage.");
@@ -763,9 +759,9 @@ class Main {
     }
   
   
-    if (fighter1 != -1) {
+    if (player1money > player2money) {
       System.out.println("Player 1 wins!");
-    } else if (fighter2 != -1) {
+    } else if (player2money < player1money) {
       System.out.println("Player 2 wins!");
     }
 
@@ -905,6 +901,7 @@ class Main {
     System.out.println("2. Bothela's Animal Hospital, an animal healer.");
     System.out.println("3. Balimund's Forge, a weapon and armour seller.");
     System.out.println("4. Leave town, and head to the fight.");
+    System.out.println("5. Quit the game.");
     int moveAroundTown = scanner.nextInt();
     return moveAroundTown;
   }
