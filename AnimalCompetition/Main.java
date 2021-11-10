@@ -17,6 +17,7 @@ class Main {
     int buyArmour = -1;
     int buySword = -1;
     int counter = 1;
+    int currentAttacker = -1;
     //Starting money
     int player1money = 100;
     int player2money = 100;
@@ -38,6 +39,7 @@ class Main {
     int damage = 0;
     int baseHealthP1 = 0;
     int baseHealthP2 = 0;
+    boolean sandboxOrCompetition = true;
     boolean isRaining = false;
     boolean isNight = true;
 
@@ -68,6 +70,10 @@ class Main {
     int maxArmour[] = new int [2];
     maxArmour[0] = 5;
     maxArmour[1] = 5;
+    
+    System.out.println("Would you like to play competiton mode against another human or play sandbox mode?");
+    System.out.println("1. Competition Mode.");
+    System.out.println("2. Sandbox Mode.");
     
 
     //finds if the user wants to face human or ai
@@ -176,6 +182,7 @@ class Main {
                   player1money -= listofanimals[buyAnimal].price();
                   baseHealthP1 = listofanimals[buyAnimal].health();
                   fighter1 = buyAnimal;
+                  break;
 
                 } else {
                   System.out.println("You don't have enough money to buy this item!");
@@ -187,6 +194,7 @@ class Main {
                   player2money -= listofanimals[buyAnimal].price();
                   baseHealthP2 = listofanimals[buyAnimal].health();
                   fighter2 = buyAnimal;
+                  break;
                 } else {
                   System.out.println("You don't have enough money to buy this item!");
                   buyAnimal = -1;
@@ -227,6 +235,7 @@ class Main {
                   System.out.println("You chose the " + weapons[buySword]);
                   player1money -= listofswords[buySword].price();
                   sword1 = buySword;
+                  break;
                 } else {
                   System.out.println("You don't have enough money to buy this item!");
                   buySword = -1;
@@ -237,6 +246,7 @@ class Main {
                   System.out.println("You chose the " + weapons[buySword]);
                   player2money -= listofswords[buySword].price();
                   sword2 = buySword;
+                  break;
                 } else {
                   System.out.println("You don't have enough money to buy this item!");
                   buySword = -1;
@@ -258,6 +268,7 @@ class Main {
                   System.out.println("You chose the " + protection[buyArmour]);
                   player1money -= listofarmour[buyArmour].price();
                   armour1 = buyArmour;
+                  break;
                 } else {
                   System.out.println("You don't have enough money to buy this item!");
                   buyArmour = -1;
@@ -267,6 +278,7 @@ class Main {
                   System.out.println("You chose the " + protection[buyArmour]);
                   player2money -= listofarmour[buyArmour].price();
                   armour2 = buyArmour;
+                  break;
                 } else {
                   System.out.println("You don't have enough money to buy this item!");
                   buyArmour = -1;
@@ -348,7 +360,85 @@ class Main {
       dodgePercentP1 += fighterName1.speed() - fighterName2.speed() - 2;
       }
 
+      if (fighterName1.isPredator()) {
+        attackValueP1 += 5;
+      } else {
+        dodgePercentP1 += 5;
+      }
 
+      if (fighterName2.isPredator()) {
+        attackValueP2 += 5;
+      } else {
+        dodgePercentP2 += 5;
+      }
+
+      switch (fighterName1.strength()) {
+        case 1:
+          attackValueP1 -= 4;
+          break;
+        case 2:
+          attackValueP1 -= 3;
+          break;
+        case 3:
+          attackValueP1 -= 2;
+          break;
+        case 4:
+          attackValueP1--;
+          break;
+        case 5:
+          attackValueP1 = attackValueP1;
+          break;
+        case 6:
+          attackValueP1++;
+          break;
+        case 7:
+          attackValueP1 += 2;
+          break;
+        case 8:
+          attackValueP1 += 3;
+          break;
+        case 9:
+          attackValueP1 += 4;
+          break;
+        default:
+          attackValueP1 = attackValueP1;
+          break;
+      }
+
+      switch (fighterName2.strength()) {
+        case 1:
+          attackValueP2 -= 4;
+          break;
+        case 2:
+          attackValueP2 -= 3;
+          break;
+        case 3:
+          attackValueP2 -= 2;
+          break;
+        case 4:
+          attackValueP2--;
+          break;
+        case 5:
+          attackValueP2 = attackValueP2;
+          break;
+        case 6:
+          attackValueP2++;
+          break;
+        case 7:
+          attackValueP2 += 2;
+          break;
+        case 8:
+          attackValueP1 += 3;
+          break;
+        case 9:
+          attackValueP2 += 4;
+          break;
+        default:
+          attackValueP2 = attackValueP2;
+          break;
+      }
+
+      
 
       int trueOrFalse = random.nextInt(2);
       if (trueOrFalse == 0) {
@@ -456,94 +546,97 @@ class Main {
         }
       }
 
-      
- 
-    System.out.println(attackValueP1);
-    System.out.println(defenseValueP1);
-    while (healthPointsP1 > 0 && healthPointsP2 > 0) {
-      dodgeChance = random.nextInt(100);
-      System.out.println(dodgeChance);
-      if (dodgeChance < dodgePercentP1) {
-        System.out.println("Player 1's " + combatants[fighter1] + " attacked Player 2's " + combatants[fighter2] + ", but " + combatants[fighter2] + " dodged out of the way.");
+      if (fighterName1.stealth() > fighterName2.stealth()) {
+        currentAttacker = 1;
+      } else if (fighterName2.stealth() > fighterName1.stealth()) {
+        currentAttacker = 0;
       } else {
-
-        if (healthPointsP1 > baseHealthP1 * 0.9) {
-          damage = attackValueP1 - (defenseValueP2 / 2);
-          System.out.println("A");
-        } else if (healthPointsP1 > baseHealthP1 * 0.7) {
-          damage = attackValueP1 - (defenseValueP2 / 2) + 5;
-          System.out.println("B");
-        } else if (healthPointsP1 > baseHealthP1 * 0.5 ) {
-          damage = attackValueP1 - (defenseValueP2 / 2) - 2;
-          System.out.println("C");
-        } else if (healthPointsP1 > baseHealthP1 * 0.2 ) {
-          damage = attackValueP1 - (defenseValueP2 / 2) - 7;
-          System.out.println("D");
-        }
-        healthPointsP2 -= damage;
-        System.out.println("Player 1's " + combatants[fighter1] + " attacks Player 2's " + combatants[fighter2] + " dealing " + damage + " damage.");
+        currentAttacker = random.nextInt(2);
       }
 
-      if (swordBroke[0] != true) {
-        if (sword1 != -1) {
-          System.out.println(maxArmour[1]);
-          System.out.println(minArmour[1]);
-          swordDurability[0] -= random.nextInt(maxArmour[1] - minArmour[1]) + minArmour[1];
-          if (swordDurability[0] < 1) {
-            attackValueP1 -= swordDamage[0];
-            System.out.println("Player 1's sword has broken.");
-            swordBroke[0] = true;
-          }
-        }
-      } 
-      if (armourBroke[0] != true) {
-        if (armour1 != -1) {
-          f1armourDurability -= random.nextInt(maxP2Sword - minP2Sword) + minP2Sword;
-          if (f1armourDurability < 1) {
-            defenseValueP1 -= armourProtection[0];
-            System.out.println("Player 1's armour has broken.");
-            armourBroke[0] = true;
-          }
-        }
-      }
-      if (healthPointsP2 > 0) {
+    
+    while (healthPointsP1 > 0 && healthPointsP2 > 0) {
+      while (currentAttacker % 2 != 0) {
         dodgeChance = random.nextInt(100);
-        System.out.println(dodgeChance);
-        if (dodgeChance < dodgePercentP2) {
-          System.out.println("Player 2's " + combatants[fighter2] + " attacked Player 1's " + combatants[fighter1] + " ,but " + combatants[fighter1] + " dodged out of the way.");
+        if (dodgeChance < dodgePercentP1) {
+          System.out.println("Player 1's " + combatants[fighter1] + " attacked Player 2's " + combatants[fighter2] + ", but " + combatants[fighter2] + " dodged out of the way.");
         } else {
+
           if (healthPointsP1 > baseHealthP1 * 0.9) {
-            damage = attackValueP1 - (defenseValueP1 / 2);
-          } else if (healthPointsP1 > baseHealthP2 * 0.7) {
-            damage = attackValueP1 - (defenseValueP1 / 2) + 5;
-          } else if (healthPointsP1 > baseHealthP2 * 0.5 ) {
-            damage = attackValueP1 - (defenseValueP1 / 2) - 2;
-          } else if (healthPointsP1 > baseHealthP2 * 0.2) {
-            damage = attackValueP1 - (defenseValueP1 / 2) - 7;
+            damage = attackValueP1 - (defenseValueP2 / 2);
+          } else if (healthPointsP1 > baseHealthP1 * 0.7) {
+            damage = attackValueP1 - (defenseValueP2 / 2) + 5;
+          } else if (healthPointsP1 > baseHealthP1 * 0.5 ) {
+            damage = attackValueP1 - (defenseValueP2 / 2) - 2;
+          } else if (healthPointsP1 > baseHealthP1 * 0.2 ) {
+            damage = attackValueP1 - (defenseValueP2 / 2) - 7;
           }
-          healthPointsP1 -= damage;
-          System.out.println("Player 2's " + combatants[fighter2] + " attacks Player 1's " + combatants[fighter1] + " dealing " + damage + " damage.");
+          healthPointsP2 -= damage;
+          System.out.println("Player 1's " + combatants[fighter1] + " attacks Player 2's " + combatants[fighter2] + " dealing " + damage + " damage.");
         }
-        if (swordBroke[1] != true) {
-          if (sword2 != -1) {
-            swordDurability[1] -= random.nextInt(maxArmour[0] - minArmour[0]) + minArmour[0];
-            if (swordDurability[1] < 1) {
-              attackValueP2 -= swordDamage[1];
-              System.out.println("Player 2's sword has broken.");
-              swordBroke[1] = true;
+
+        if (swordBroke[0] != true) {
+          if (sword1 != -1) {
+            swordDurability[0] -= random.nextInt(maxArmour[1] - minArmour[1]) + minArmour[1];
+            if (swordDurability[0] < 1) {
+              attackValueP1 -= swordDamage[0];
+              System.out.println("Player 1's sword has broken.");
+              swordBroke[0] = true;
+            }
+          }
+        } 
+        if (armourBroke[0] != true) {
+          if (armour1 != -1) {
+            f1armourDurability -= random.nextInt(maxP2Sword - minP2Sword) + minP2Sword;
+            if (f1armourDurability < 1) {
+              defenseValueP1 -= armourProtection[0];
+              System.out.println("Player 1's armour has broken.");
+              armourBroke[0] = true;
             }
           }
         }
-        if (armourBroke[1] != true) {
-          if (armour2 != -1) {
-            f2armourDurability -= random.nextInt(maxP1Sword - minP1Sword) + minP1Sword;
-            if (f2armourDurability < 1) {
-              defenseValueP2 -= armourProtection[1];
-              System.out.println("Player 2's armour has broken.");
-              armourBroke[1] = true;
+        currentAttacker--;
+      }
+      while (currentAttacker % 2 == 0) {
+        if (healthPointsP2 > 0) {
+          dodgeChance = random.nextInt(100);
+          if (dodgeChance < dodgePercentP2) {
+            System.out.println("Player 2's " + combatants[fighter2] + " attacked Player 1's " + combatants[fighter1] + " ,but " + combatants[fighter1] + " dodged out of the way.");
+          } else {
+            if (healthPointsP1 > baseHealthP1 * 0.9) {
+              damage = attackValueP1 - (defenseValueP1 / 2);
+            } else if (healthPointsP1 > baseHealthP2 * 0.7) {
+              damage = attackValueP1 - (defenseValueP1 / 2) + 5;
+            } else if (healthPointsP1 > baseHealthP2 * 0.5 ) {
+              damage = attackValueP1 - (defenseValueP1 / 2) - 2;
+            } else if (healthPointsP1 > baseHealthP2 * 0.2) {
+              damage = attackValueP1 - (defenseValueP1 / 2) - 7;
+            }
+            healthPointsP1 -= damage;
+            System.out.println("Player 2's " + combatants[fighter2] + " attacks Player 1's " + combatants[fighter1] + " dealing " + damage + " damage.");
+          }
+          if (swordBroke[1] != true) {
+            if (sword2 != -1) {
+              swordDurability[1] -= random.nextInt(maxArmour[0] - minArmour[0]) + minArmour[0];
+              if (swordDurability[1] < 1) {
+                attackValueP2 -= swordDamage[1];
+                System.out.println("Player 2's sword has broken.");
+                swordBroke[1] = true;
+              }
+            }
+          }
+          if (armourBroke[1] != true) {
+            if (armour2 != -1) {
+              f2armourDurability -= random.nextInt(maxP1Sword - minP1Sword) + minP1Sword;
+              if (f2armourDurability < 1) {
+                defenseValueP2 -= armourProtection[1];
+                System.out.println("Player 2's armour has broken.");
+                armourBroke[1] = true;
+              }
             }
           }
         }
+        currentAttacker++;
       }
     }
 

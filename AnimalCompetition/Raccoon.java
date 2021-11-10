@@ -53,4 +53,12 @@ class Raccoon extends Animal implements IFightable, ISellable {
     return 40;
   }
 
+  public int stealth() {
+    return 8;
+  }
+
+  public int strength() {
+    return 3;
+  }
+
 }

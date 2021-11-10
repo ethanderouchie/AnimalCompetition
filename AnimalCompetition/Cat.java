@@ -52,4 +52,12 @@ public class Cat extends Animal implements IFightable, ISellable {
     return 30;
   }
 
+  public int stealth() {
+    return 6;
+  }
+
+  public int strength() {
+    return 5;
+  }
+
 }

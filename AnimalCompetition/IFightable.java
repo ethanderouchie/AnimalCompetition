@@ -21,5 +21,9 @@ public interface IFightable {
   public int speed(); //speed in km/h
 
   public int size(); //size in centimeters
+
+  public int stealth();
+
+  public int strength();
   
 }

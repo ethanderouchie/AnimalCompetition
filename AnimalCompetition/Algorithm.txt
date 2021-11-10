@@ -23,10 +23,13 @@ already done:
 - Heavy Armour
 - isNocturnal
 - Health
+- Predator or prey
+- 
 
 need to do
 
 - strength
+- stealth
 
 
 envior
