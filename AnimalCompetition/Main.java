@@ -179,7 +179,7 @@ class Main {
 
 
     System.out.println("It is now player 1's turn to buy items.");
-    while (player1money >= lowestAnimalCost && player2money >= lowestAnimalCost && isCompetition != false    {
+    while (player1money >= lowestAnimalCost && player2money >= lowestAnimalCost) {
       for (int i = 1; i <= 2; i++) { //allows for each player to get a turn buying equipment each round
         while (moveAroundTown != 4) { //4 exits the town and lets player2 decide what to buy
           moveAroundTown = townMovement();
@@ -190,7 +190,12 @@ class Main {
             while (moveInShops == 1) { 
               for (var animal: animals) { //prints all the animals and their stats
                 var fighter = (IFightable)animal;
-                System.out.println(String.format(counter + ". %s, %s damage, %s defense, %s health, %s coins.", animal.species(), fighter.attackPoints(), fighter.defensePoints(), fighter.health(), animal.price()));
+                System.out.print(String.format(counter + ". %s, %s damage, %s defense, %s health", animal.species(), fighter.attackPoints(), fighter.defensePoints(), fighter.health()));
+                if (isCompetition != false) {
+                  System.out.println(String.format(", %s coins.", animal.price()));
+                } else {
+                  System.out.println();
+                }
                 counter++;
               }
               System.out.println(counter + ". Leave animal selection.");
@@ -201,30 +206,40 @@ class Main {
                 break;
               }
               if (i == 1) {
-                if (player1money - listofanimals[buyAnimal].price() > 0) {
-                  System.out.println("You chose the " + combatants[buyAnimal]);
-                  player1money -= listofanimals[buyAnimal].price();
-                  baseHealthP1 = listofanimals[buyAnimal].health();
-                  fighter1 = buyAnimal;
-                  break;
-
-                } else {
-                  System.out.println("You don't have enough money to buy this item!");
-                  buyAnimal = -1;
+                if (isCompetition != false) {
+                  if (player1money - listofanimals[buyAnimal].price() > 0) {
+                    System.out.println("You chose the " + combatants[buyAnimal]);
+                    player1money -= listofanimals[buyAnimal].price();
+                    baseHealthP1 = listofanimals[buyAnimal].health();
+                    fighter1 = buyAnimal;
+                    break;
+                  
+                  } else {
+                    System.out.println("You don't have enough money to buy this item!");
+                    buyAnimal = -1;
+                    break;
+                  }
                 }
+                fighter1 = buyAnimal;
+                break;
+
               } else if (i == 2) {
-                if (player2money - listofanimals[buyAnimal].price() > 0) {
-                  System.out.println("You chose the " + combatants[buyAnimal]);
-                  player2money -= listofanimals[buyAnimal].price();
-                  baseHealthP2 = listofanimals[buyAnimal].health();
-                  fighter2 = buyAnimal;
-                  break;
-                } else {
-                  System.out.println("You don't have enough money to buy this item!");
-                  buyAnimal = -1;
+                if (isCompetition != false) {
+                  if (player2money - listofanimals[buyAnimal].price() > 0) {
+                    System.out.println("You chose the " + combatants[buyAnimal]);
+                    player2money -= listofanimals[buyAnimal].price();
+                    baseHealthP2 = listofanimals[buyAnimal].health();
+                    fighter2 = buyAnimal;
+                    break;
+                  } else {
+                    System.out.println("You don't have enough money to buy this item!");
+                    buyAnimal = -1;
+                    break;
+                  }
                 }
+                fighter2 = buyAnimal;
+                break;
               }
-
             } 
             while (moveInShops == 2) { //Lets you go back out to the town
               moveAroundTown = 0;
@@ -318,6 +333,8 @@ class Main {
         i = canPlayerLeave(fighter1, fighter2, i);
         
       }
+
+      System.out.println("AHHH");
     
           
       int minP1Sword = 0;
@@ -468,8 +485,10 @@ class Main {
       trueOrFalse = random.nextInt(2);
       if (trueOrFalse == 0) {
         isRaining = false;
+        System.out.println("It is not raining.");
       } else if (trueOrFalse == 1) {
         isRaining = true;
+        System.out.println("It is raining.");
       }
 
       if (isRaining != false) {
@@ -486,8 +505,10 @@ class Main {
 
       if (trueOrFalse == 0) {
         isNight = false;
+        System.out.println("It is daytime.");
       } else if (trueOrFalse == 1) {
         isNight = true;
+        System.out.println("It is nighttime.");
       }
 
       if (isNight != false) {
@@ -630,12 +651,16 @@ class Main {
           } else {
             if (healthPointsP1 > baseHealthP1 * 0.9) {
               damage = attackValueP1 - (defenseValueP1 / 2);
+              System.out.println("A");
             } else if (healthPointsP1 > baseHealthP2 * 0.7) {
               damage = attackValueP1 - (defenseValueP1 / 2) + 5;
+              System.out.println("B");
             } else if (healthPointsP1 > baseHealthP2 * 0.5 ) {
               damage = attackValueP1 - (defenseValueP1 / 2) - 2;
+              System.out.println("C");
             } else if (healthPointsP1 > baseHealthP2 * 0.2) {
               damage = attackValueP1 - (defenseValueP1 / 2) - 7;
+              System.out.println("D");
             }
             healthPointsP1 -= damage;
             System.out.println("Player 2's " + combatants[fighter2] + " attacks Player 1's " + combatants[fighter1] + " dealing " + damage + " damage.");
@@ -683,17 +708,17 @@ class Main {
         
         } else {
           attackValueP1 += 5;
-         defenseValueP1 += 7;
-         dodgePercentP1 += 15;
+          defenseValueP1 += 7;
+          dodgePercentP1 += 15;
         }
         if (fighterName2.isNocturnal()) {
-         attackValueP2 -= 5;
+          attackValueP2 -= 5;
           defenseValueP2 -= 5;
           dodgePercentP2 -= 5;
         } else {
-         attackValueP2 += 5;
-         defenseValueP2 += 7;
-         dodgePercentP2 += 15;
+          attackValueP2 += 5;
+          defenseValueP2 += 7;
+          dodgePercentP2 += 15;
         }
       } else {
         if (fighterName1.isNocturnal()) {
