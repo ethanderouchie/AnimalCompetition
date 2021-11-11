@@ -19,11 +19,13 @@ class Main {
     int buySword = -1;
     int counter = 1;
     int currentAttacker = -1;
+    int healthPointsP1 = -1;
+    int healthPointsP2 = -1;
     //Starting money
     int player1money = 100;
     int player2money = 100;
     //lets program know if player1 wants to face a human or an ai
-    int humanOrAI;
+    int humanOrAI = -1;
     boolean isFacingHuman = false;
     //counts animals and weapons
     int animalCounter = 0;
@@ -118,9 +120,13 @@ class Main {
 
     //adds animal objects to an array
     var listofanimals = new Animal[] {
-      new Raccoon(),
+      new Bear(),
       new Cat(),
-      new Dog()
+      new Dog(),
+      new Lion(),
+      new Raccoon(),
+      new Snake(),
+      new Turtle()
     };
 
     //adds sword objects to an array
@@ -178,10 +184,16 @@ class Main {
     }
 
 
-
-    System.out.println("It is now player 1's turn to buy items.");
-    while (player1money >= lowestAnimalCost && player2money >= lowestAnimalCost && quitGame != true) {
+    if (humanOrAI != 3) {
+      System.out.println("It is now player 1's turn to buy items.");
+    } else {
+      System.out.println("Customize animal 1.");
+    }
+    while (player1money >= lowestAnimalCost && player2money >= lowestAnimalCost) {
       for (int i = 1; i <= 2; i++) { //allows for each player to get a turn buying equipment each round
+        if (quitGame != false) {
+          break;
+        }
         while (moveAroundTown != 4) { //4 exits the town and lets player2 decide what to buy
           moveAroundTown = townMovement();
           while (moveAroundTown == 1) { 
@@ -195,7 +207,7 @@ class Main {
                 if (isCompetition != false) {
                   System.out.println(String.format(", %s coins.", animal.price()));
                 } else {
-                  System.out.println();
+                  System.out.println(".");
                 }
                 counter++;
               }
@@ -208,10 +220,11 @@ class Main {
               }
               if (i == 1) {
                 if (isCompetition != false) {
-                  if (player1money - listofanimals[buyAnimal].price() > 0) {
+                  if (player1money - listofanimals[buyAnimal].price() >= 0) {
                     System.out.println("You chose the " + combatants[buyAnimal]);
                     player1money -= listofanimals[buyAnimal].price();
                     baseHealthP1 = listofanimals[buyAnimal].health();
+                    healthPointsP1 = baseHealthP1;
                     fighter1 = buyAnimal;
                     break;
                   
@@ -221,12 +234,14 @@ class Main {
                     break;
                   }
                 }
+                baseHealthP1 = listofanimals[buyAnimal].health();
+                healthPointsP1 = baseHealthP1;
                 fighter1 = buyAnimal;
                 break;
 
               } else if (i == 2) {
                 if (isCompetition != false) {
-                  if (player2money - listofanimals[buyAnimal].price() > 0) {
+                  if (player2money - listofanimals[buyAnimal].price() >= 0) {
                     System.out.println("You chose the " + combatants[buyAnimal]);
                     player2money -= listofanimals[buyAnimal].price();
                     baseHealthP2 = listofanimals[buyAnimal].health();
@@ -238,6 +253,8 @@ class Main {
                     break;
                   }
                 }
+                baseHealthP2 = listofanimals[buyAnimal].health();
+                healthPointsP2 = baseHealthP2;
                 fighter2 = buyAnimal;
                 break;
               }
@@ -247,7 +264,6 @@ class Main {
               break;
             } 
           }
-
 
           while (moveAroundTown == 2) { //this will eventually allow you to heal your animals, right now kicks you out to the town
             moveInShops = 0;
@@ -261,60 +277,85 @@ class Main {
             moveInShops = forgeMovement();
             while (moveInShops == 1) { //buy swords
               for (var sword: swords) {
-                System.out.println(String.format(counter + ". %s, %s damage, %s durability, %s coins", sword.type(), sword.damage(), sword.durability(), sword.price()));
+                System.out.print(String.format(counter + ". %s, %s damage, %s durability", sword.type(), sword.damage(), sword.durability()));
+                if (isCompetition != false) {
+                  System.out.println(String.format(", %s coins", sword.price()));
+                } else {
+                  System.out.println(".");
+                }
                 counter++;
               }
               System.out.println(counter + ". Leave sword selection.");
-              counter = 1;
               buySword = getPlayerSword(weapons, AL_SwordsSize);
+              counter = 1;
               if (buySword == 6) {
                 break;
               }
               if (i == 1) {
-                if (player1money - listofswords[buySword].price() > 0) {
+                if (isCompetition != false) {
+                  if (player1money - listofswords[buySword].price() >= 0) {
                   System.out.println("You chose the " + weapons[buySword]);
                   player1money -= listofswords[buySword].price();
                   sword1 = buySword;
                   break;
-                } else {
-                  System.out.println("You don't have enough money to buy this item!");
-                  buySword = -1;
+                  } else {
+                    System.out.println("You don't have enough money to buy this item!");
+                    buySword = -1;
+                    break;
+                  }
                 }
-
+                sword1 = buySword;
+                break;
               } else if (i == 2) {
-                if (player2money - listofswords[buySword].price() > 0) {
-                  System.out.println("You chose the " + weapons[buySword]);
-                  player2money -= listofswords[buySword].price();
-                  sword2 = buySword;
-                  break;
-                } else {
-                  System.out.println("You don't have enough money to buy this item!");
-                  buySword = -1;
+                if (isCompetition != false) {
+                  if (player2money - listofswords[buySword].price() >= 0) {
+                    System.out.println("You chose the " + weapons[buySword]);
+                    player2money -= listofswords[buySword].price();
+                    sword2 = buySword;
+                    break;
+                  } else {
+                    System.out.println("You don't have enough money to buy this item!");
+                    buySword = -1;
+                  }
                 }
+                sword2 = buySword;
+                break;
               }
               
             } while (moveInShops == 2) { 
               for (var armour: armours) {
-                System.out.println(String.format(counter + ". %s, %s protection, %s durability, %s coins.", armour.type(), armour.protection(), armour.durability(), armour.price()));
+                System.out.print(String.format(counter + ". %s, %s protection, %s durability", armour.type(), armour.protection(), armour.durability()));
+                if (isCompetition != false) {
+                  System.out.println(String.format(", %s coins", armour.price()));
+                } else {
+                  System.out.println(".");
+                }
                 counter++;
               }
+              counter = 1;
               buyArmour = getPlayerArmour(protection, AL_ArmoursSize);
               if (buyArmour == 6) {
                 break;
               }
               
               if (i == 1) {
-                if (player1money - listofarmour[buyArmour].price() > 0) {
-                  System.out.println("You chose the " + protection[buyArmour]);
-                  player1money -= listofarmour[buyArmour].price();
-                  armour1 = buyArmour;
-                  break;
-                } else {
-                  System.out.println("You don't have enough money to buy this item!");
-                  buyArmour = -1;
+                if (isCompetition != false) {
+                  if (player1money - listofarmour[buyArmour].price() >= 0) {
+                    System.out.println("You chose the " + protection[buyArmour]);
+                    player1money -= listofarmour[buyArmour].price();
+                    armour1 = buyArmour;
+                    break;
+                  } else {
+                    System.out.println("You don't have enough money to buy this item!");
+                    buyArmour = -1;
+                    break;
+                  }
                 }
+                armour1 = buyArmour;
+                break;
+
               } else if (i == 2) {
-                if (player2money - listofarmour[buyArmour].price() > 0) {
+                if (player2money - listofarmour[buyArmour].price() >= 0) {
                   System.out.println("You chose the " + protection[buyArmour]);
                   player2money -= listofarmour[buyArmour].price();
                   armour2 = buyArmour;
@@ -323,6 +364,8 @@ class Main {
                   System.out.println("You don't have enough money to buy this item!");
                   buyArmour = -1;
                 }
+                armour2 = buyArmour;
+                break;
               }
             } while (moveInShops == 3) { //lets you leave to the town
               moveAroundTown = 0;
@@ -330,19 +373,37 @@ class Main {
             }
           }
 
-          while (moveAroundTown == 5) {
+          if (moveAroundTown == 5) {
             quitGame = true;
+            break;
           }
         }
         moveAroundTown = 0;
-        i = canPlayerLeave(fighter1, fighter2, i);
+        i = canPlayerLeave(fighter1, fighter2, humanOrAI, i, quitGame);
         
       }
+
+      System.out.println("It is now time to fight!");
+
+      if (quitGame != false) {
+        break;
+      }
+
+      if (humanOrAI == 2) {
+        fighter2 = getAIChoice(combatants, AL_AnimalsSize);
+        sword2 = getAISword(weapons, AL_SwordsSize);
+        armour2 = getAIArmour(protection, AL_ArmoursSize);
+      }
+
+      System.out.println(fighter2);
+      System.out.println(sword2);
+      System.out.println(armour2);
 
       int minP1Sword = 0;
       int maxP1Sword = 5;
       int minP2Sword = 0;      
       int maxP2Sword = 5;
+
 
       //gives player 1's animal their stats and sword and gives player 2's animal their stats and sword
       
@@ -350,15 +411,16 @@ class Main {
       var fighterName1 = (IFightable)listofanimals[fighter1];
       int attackValueP1 = fighterName1.attackPoints();
       int defenseValueP1 = fighterName1.defensePoints();
-      int healthPointsP1 = fighterName1.health();
       int dodgePercentP1 = fighterName1.dodgePercent();
 
       var fighterName2 = (IFightable)listofanimals[fighter2];
       int attackValueP2 = fighterName2.attackPoints();
       int defenseValueP2 = fighterName2.defensePoints();
-      int healthPointsP2 = fighterName2.health();
       int dodgePercentP2 = fighterName2.dodgePercent();
-
+      if (humanOrAI == 2) {
+        baseHealthP2 = fighterName2.health();
+        healthPointsP2 = baseHealthP2;
+      }
 
       if (sword1 != -1) {
        var f1sword = listofswords[sword1];
@@ -546,9 +608,9 @@ class Main {
           dodgePercentP1 += 5;
         }
         if (fighterName2.isNocturnal()) {
-        attackValueP2 -= 5;
-        defenseValueP2 -= 7;
-        dodgePercentP2 -= 15;
+          attackValueP2 -= 5;
+          defenseValueP2 -= 7;
+          dodgePercentP2 -= 15;
           
         } else {
           attackValueP2 += 5;
@@ -601,7 +663,8 @@ class Main {
       } else {
         currentAttacker = random.nextInt(2);
       }
-
+    
+    
     while (healthPointsP1 > 0 && healthPointsP2 > 0) {
       while (currentAttacker % 2 != 0) {
         dodgeChance = random.nextInt(100);
@@ -649,14 +712,18 @@ class Main {
           if (dodgeChance < dodgePercentP1) {
             System.out.println("Player 2's " + combatants[fighter2] + " attacked Player 1's " + combatants[fighter1] + ", but " + combatants[fighter1] + " dodged out of the way.");
           } else {
-            if (healthPointsP1 > baseHealthP1 * 0.9) {
-              damage = attackValueP1 - (defenseValueP1 / 2);
-            } else if (healthPointsP1 > baseHealthP2 * 0.7) {
-              damage = attackValueP1 - (defenseValueP1 / 2) + 5;
-            } else if (healthPointsP1 > baseHealthP2 * 0.5 ) {
-              damage = attackValueP1 - (defenseValueP1 / 2) - 2;
-            } else if (healthPointsP1 > baseHealthP2 * 0.2) {
-              damage = attackValueP1 - (defenseValueP1 / 2) - 7;
+            if (healthPointsP2 > baseHealthP2 * 0.9) {
+              damage = attackValueP2 - (defenseValueP1 / 2);
+              System.out.println(damage + " 1");
+            } else if (healthPointsP2 > baseHealthP2 * 0.7) {
+              damage = attackValueP2 - (defenseValueP1 / 2) + 5;
+              System.out.println(damage + " 2");
+            } else if (healthPointsP2 > baseHealthP2 * 0.5 ) {
+              damage = attackValueP2 - (defenseValueP1 / 2) - 2;
+              System.out.println(damage + " 3");
+            } else if (healthPointsP2 > baseHealthP2 * 0.2) {
+              damage = attackValueP2 - (defenseValueP1 / 2) - 7;
+              System.out.println(damage + " 4");
             }
             healthPointsP1 -= damage;
             System.out.println("Player 2's " + combatants[fighter2] + " attacks Player 1's " + combatants[fighter1] + " dealing " + damage + " damage.");
@@ -758,13 +825,11 @@ class Main {
       }
     }
   
-  
-    if (player1money > player2money) {
+    if (fighter1 != -1) {
       System.out.println("Player 1 wins!");
-    } else if (player2money < player1money) {
+    } else if (fighter2 != -1) {
       System.out.println("Player 2 wins!");
     }
-
   } //close main method
 
   public static int getPlayerChoice (String combatants[], int AL_AnimalsSize) {
@@ -807,8 +872,29 @@ class Main {
     Random random = new Random();
     int chooseFighter;
     chooseFighter = random.nextInt(AL_AnimalsSize);
-
     return chooseFighter;
+  }
+
+  public static int getAISword (String weapons[], int AL_SwordsSize) {
+    Random random = new Random();
+    int chooseSword;
+    chooseSword = random.nextInt(AL_SwordsSize);
+    if (chooseSword == 0) {
+      return -1;
+    } else {
+      return chooseSword;
+    }
+  }
+
+  public static int getAIArmour (String protection[], int AL_ArmoursSize) {
+    Random random = new Random();
+    int chooseArmour;
+    chooseArmour = random.nextInt(AL_ArmoursSize);
+    if (chooseArmour == 0) {
+      return -1;
+    } else {
+      return chooseArmour;
+    }
 
   }
 
@@ -925,8 +1011,12 @@ class Main {
     return moveInShops;
   }
 
-  public static int canPlayerLeave(int fighter1, int fighter2, int i) {
-    if (fighter1 == -1) {
+  public static int canPlayerLeave(int fighter1, int fighter2, int humanOrAI, int i, boolean quitGame) {
+    if (quitGame != false) {
+      return i;
+    } else if (humanOrAI == 2) {
+      return i + 1;
+    } else if (fighter1 == -1) {
       System.out.println("You must choose a fighter! Visit Arivanya's Animals to buy an animal.");
       i--;
     } else if (fighter2 == -1 && i == 2) {
@@ -934,9 +1024,12 @@ class Main {
       i--;
     }
     else if (i == 1) {
-      System.out.println("It is now player 2's turn to buy items.");
-    } else if (i == 2) {
-      System.out.println("It is now time to fight!");
+      if (humanOrAI != 3) {
+        System.out.println("It is now player 2's turn to buy items.");
+      } else {
+        System.out.println("Please customize animal 2.");
+      }
+      
     }
     return i;
   }
